@@ -1,19 +1,11 @@
 baseURL = "https://qinry.github.io"
 title = "qinry's blog"
-theme = "hyde"
+theme = "m10c"
 
+paginate = 6
 [params]
    author = "qinry"
    description = "在此写下学习日志，努力充电中～"
-   themeColor = "theme-base-0b"
-
-
-[Menus]
-  main = [
-    {Name = "Github", URL = "https://github.com/qinry"},
-    {Name = "tags", URL = "/tags/"}
-  ]
-
-[taxonomies]
-   tag = "tags"
-
+   [[params.social]]
+   	name = "github"
+	url = "https://github.com/qinry"
