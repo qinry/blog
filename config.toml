@@ -1,11 +1,21 @@
 baseURL = "https://qinry.github.io"
 title = "qinry's blog"
-theme = "m10c"
+theme = "hyde"
 
 paginate = 6
+
+# theme is m10c
+#[params]
+#   author = "qinry"
+#   description = "在此写下学习日志，努力充电中～"
+#   [[params.social]]
+#   	name = "github"
+#	url = "https://github.com/qinry"
+
+# theme is hyde
+[Menus]
+   main = [
+      {Name = "Github", URL = "https://github.com/qinry"},
+   ]
 [params]
-   author = "qinry"
    description = "在此写下学习日志，努力充电中～"
-   [[params.social]]
-   	name = "github"
-	url = "https://github.com/qinry"
