@@ -38,6 +38,56 @@ Java:
 
 3. 递归调用的父问题和尝试解决的子问题之间不应该有交集。
 
+### 一些递归的例子
+
+#### 阶乘
+
+Java:
+
+    public static int fact(int N) {
+        if(N == 0) return 1;
+        return N * fact(N - 1);
+    }
+典型的尾递归，效率最高的递归形式
+
+#### 斐波那契数列
+
+Java:
+
+    public static int fibonacci(int N) {
+        if(N == 0) return 0;
+        if(N == 1) return 1;
+        return fibonacci(N - 2) + fibonacci(N - 1);
+    }
+典型的双递归，子问题有重复了工作，问题有交集，故效率低于迭代形式
+迭代如下：
+Java:
+
+    public static int fibonacci(int N) {
+        int n_2 = 0, n_1 = 1;
+        int temp;
+        for(int i = 0; i < N; i++) {
+            temp = n_2 + n_1;
+            n_2 = n_1;
+            n_1 = temp;
+        }
+        return n_2;
+    }
+
+#### 底数，指数为非负整数的幂运算
+
+Java:
+
+    public static int pow(int X, int N) {
+        if(N == 0) return 1;
+        if(N == 1) return X;
+        if(N % 2 == 0)
+            return pow(X*X, N/2);
+        else 
+            return pow(X*X, N/2) * X;
+    }
+根据条件分路解决规模更小子问题，递归调用次数随N递减不呈指数增长,而是线性增长,也是尾递归。
+
 ### 扩展
 
 #### 数学归纳法证明欧几里得算法能够计算任意一对非负整数p, q的最大公约数
