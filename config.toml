@@ -5,7 +5,7 @@ theme = "hyde"
 paginate = 6
 
 
-theme is hyde
+# theme is hyde
 [Menus]
    main = [
       {Name = "Github", URL = "https://github.com/qinry"},
