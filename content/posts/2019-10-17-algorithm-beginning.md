@@ -3,20 +3,24 @@ title: "数据结构与算法分析(笔记) -- 开始"
 date: 2019-10-17T23:29:10+08:00
 tags : ["algorithm"]
 ---
+
 ## 递归使用的基本法则
+
 1. 基准情形：要有退出条件
-2. 不断推进：从初始条件趋向退出条件   
+2. 不断推进：从初始条件趋向退出条件
 3. 设计准则 ：假设递归准确执行
 4. 合成效益法则：防止重复工作，比如生成斐波那契数列的递归实现使用双递归，导致一些工作的重复，进而影响效率
 
 递归符合前三个法则才能正确进行，符合第四法则递归的使用才有意义。虽然递归的代码逻辑清晰，不过效率不高。在用迭代同样能方便解决问题时，还是采用迭代。
 
 ## 算法分析
+
 4种描述算法效率的数学模型，常用的有大O记法
 
 大O记法：时间T(N) = O( f( N ) ), 意思是T( N ) 的相对增长率小于 f(N)
 
 ### 计算运行时间
+
 一般法则
 
 1. FOR循环
@@ -25,12 +29,13 @@ tags : ["algorithm"]
 4. IF/ELSE语句
 
 ---
+
 #### 最大子序列和问题解
 
 ##### 算法1（嵌套3层for循环）
 
-```C 
-int 
+```C
+int
 MaxSubsequenceSum(const int A[], int N)
 {
     int ThisSum, MaxSum, i, j, k;
@@ -46,15 +51,13 @@ MaxSubsequenceSum(const int A[], int N)
                 MaxSum = ThisSum;
         }
     return MaxSum;
-} 
+}
 ```
-</font>
 
 ##### 算法2（嵌套2层for循环）
 
-
 ```C
-int 
+int
 MaxSubsequenceSum(const int A[], int N)
 {
     int ThisSum, MaxSum, i, j;
@@ -74,19 +77,17 @@ MaxSubsequenceSum(const int A[], int N)
 }
 ```
 
-
 ##### 算法3（分治）
-
 
 ```C
 int Max3(int x, int y, int z)
 {
-    return (x > y 
+    return (x > y
             ? (x > z ? x : z)
             : (y > z ? y : z)
             );
 }
-static int 
+static int
 MaxSubSum(const int A[], int Left, int Right)
 {
     int MaxLeftSum, MaxRightSum;
@@ -99,7 +100,7 @@ MaxSubSum(const int A[], int Left, int Right)
             return A[ Left ];
         else
             return 0;
-    
+
     Center = (Left + Right) / 2;
     MaxLeftSum = MaxSubSum( A, Left, Center);
     MaxRightSum = MaxSubSum(A, Center + 1, Right);
@@ -119,25 +120,24 @@ MaxSubSum(const int A[], int Left, int Right)
         if (RightBorderSum > MaxRightBorderSum)
             MaxRightBorderSum = RightBorderSum;
     }
-    return Max3(MaxLeftSum, MaxRightSum, 
+    return Max3(MaxLeftSum, MaxRightSum,
             MaxLeftBorderSum + MaxRightBorderSum);
 }
-int 
+int
 MaxSubsquenceSum(const int A[], int N)
 {
     return MaxSubSum(A, 0, N - 1);
 }
 ```
 
-
 ##### 算法4(联机算法)
 
 ```C
-int 
-MaxSubsquenceSum(cosnt int A[], int N)
+int
+MaxSubsquenceSum(const int A[], int N)
 {
     int ThisSum, MaxSum, i;
-    
+
     ThisSum = MaxSum = 0;
     for (i = 0; i < N; i++)
     {
@@ -153,6 +153,7 @@ MaxSubsquenceSum(cosnt int A[], int N)
 ```
 
 #### 欧几里得算法
+
 ```C
 int gcd(int M, int N)
 {
@@ -168,7 +169,6 @@ int gcd(int M, int N)
 ```
 
 #### 求幂运算
-
 
 ```C
 _Bool IsEven(int N)
