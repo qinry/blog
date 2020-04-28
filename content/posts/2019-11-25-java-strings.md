@@ -1,16 +1,17 @@
 ---
-title: "《Thinking in Java》--  字符串"
+title: "字符串"
 date: 2019-11-25T09:46:16+08:00
 tags: [ "java"]
 ---
 
-# 字符串
-
 ## String对象不可变
+
 String对象被创建后不可修改，某些方法看似是修改源字符串，其实是重新创建新字符串来代替。
 
 ## StringBuilder
+
 在循环体中对String对象反复使用 "+=", "+" 运算符，以达字符串的拼接,其实效率不高。因为"+","+="工作实际上虚拟机会自动创建StringBuilder来起到拼接效果，每次循环建立一个StringBuilder,这将导致资源的浪费。可以在循环体外创建一个StringBuilder，每次调用append()方法拼接字符串，最后toString()返回字符串。如下:
+
 ```Java
 import java.util.*;
 public class Mango {
@@ -30,7 +31,9 @@ public class Mango {
 ```
 
 ## String的常用方法
+
 以下方法改变内容返回的String都是新的String, 没有改变内容返回的String都是原始字符串的引用
+
 ```Java
 构造器
 String(String)
@@ -111,15 +114,19 @@ String intern()
 ```
 
 ## 格式化输出
+
 System.out.printf() 与 C的printf类似
 System.out.format() 也是如此
 
-#### 格式化说明符
+### 格式化说明符
+
 %[argument_index$][flags][width][.precision]conversion
 注：其中[.precision]不能用于整数类型，否则触发异常
 
-#### Formatter类
+### Formatter类
+
 使用:
+
 ```Java
 在某个方法内
 String name = "Jack";
@@ -127,12 +134,14 @@ int age = 12;
 Formatter f = new Formatter(System.out);
 f.format("name: %s, age: %d", name, age);
 ```
+
 解释: Formatter类会将format()内的参数打印到System.out
 
 String.format方法是静态方法，内部创建Formatter对象，将传入的参数，传给
 Formatter。
 
 ## 扫描输入
+
 使用java.io.Scanner，扫描输入， 减少分割字符串操作
 例子:
 
@@ -152,7 +161,7 @@ public class ScanRead {
         int year = in.nextInt();
         System.out.println(year);
         System.out.println("How much pi do you know?");
-        double pi = in.nextDouble();        
+        double pi = in.nextDouble();
         System.out.println("yes , pi = " + pi);
     }
 }
