@@ -1,7 +1,7 @@
 ---
 title: "简简单单知道递归"
 date: 2020-04-27T20:21:23+08:00
-draft: true
+tags: ["algorithm"]
 ---
 
 ### 递归的含义
@@ -10,13 +10,13 @@ draft: true
 
 任意一对非负整数p，q(p > q),设r是p与q相除的余数。p，q的最大公约数等于q，p的最大公约数。
 
-Java:
-
-    public static int gcd(int p, int q) {
-        if(q == 0) return p;
-        int r = p % q;
-        return gcd(q, r);
-    }
+```java
+public static int gcd(int p, int q) {
+    if(q == 0) return p;
+    int r = p % q;
+    return gcd(q, r);
+}
+```
 
 ### 为什么使用递归
 
@@ -42,50 +42,55 @@ Java:
 
 #### 阶乘
 
-Java:
-
-    public static int fact(int N) {
+```java
+public static int fact(int N) {
         if(N == 0) return 1;
         return N * fact(N - 1);
-    }
+}
+```
+
 典型的尾递归，效率最高的递归形式
 
 #### 斐波那契数列
 
-Java:
-
-    public static int fibonacci(int N) {
+```java
+public static int fibonacci(int N) {
         if(N == 0) return 0;
         if(N == 1) return 1;
         return fibonacci(N - 2) + fibonacci(N - 1);
-    }
+}
+```
+
 典型的双递归，子问题有重复了工作，问题有交集，故效率低于迭代形式
 迭代如下：
-Java:
 
-    public static int fibonacci(int N) {
-        int n_2 = 0, n_1 = 1;
-        int temp;
-        for(int i = 0; i < N; i++) {
-            temp = n_2 + n_1;
-            n_2 = n_1;
-            n_1 = temp;
-        }
-        return n_2;
+```java
+public static int fibonacci(int N) {
+    int n_2 = 0, n_1 = 1;
+    int temp;
+    for(int i = 0; i < N; i++) {
+        temp = n_2 + n_1;
+        n_2 = n_1;
+        n_1 = temp;
     }
+    return n_2;
+}
+```
 
 #### 底数，指数为非负整数的幂运算
 
-Java:
+```java
+public static int pow(int X, int N) {
+    if(N == 0) return 1;
+    if(N == 1) return X;
+    if(N % 2 == 0)
+        return pow(X*X, N/2);
+    else
+        return pow(X*X, N/2) * X;
 
-    public static int pow(int X, int N) {
-        if(N == 0) return 1;
-        if(N == 1) return X;
-        if(N % 2 == 0)
-            return pow(X*X, N/2);
-        else 
-            return pow(X*X, N/2) * X;
-    }
+}
+```
+
 根据条件分路解决规模更小子问题，递归调用次数随N递减不呈指数增长,而是线性增长,也是尾递归。
 
 ### 扩展
