@@ -92,7 +92,7 @@ Buffer有四个索引：mark(标记)、position(位置)、limit(界限)、capaci
 以下是创建MappedByteBuffer的方法，内存映射文件开一个创建和修改太大的文件，可以方便想数组一样访问文件，如put(byte data)加入数据，get(int index)访问数据，它继承ByteBuffer，拥有父类所有的方法。
 
 ```java
-MappedByteBuffer buff = 
+MappedByteBuffer buff =
     new RandomAccessFile(文件名, "rw").getChannel()
         .map(FileChannel.MapMode.READ_WRITE, POSITION, SIZE);
 ```
