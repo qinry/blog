@@ -39,6 +39,8 @@ int[][][] body; // 三维数组
 
 以下参数中的数组一词指 *注：数组指基本数据类型数组或Object的数组*
 
+- public static List< T > asList(T[] a) 将数组转变为List，但底层依旧是数组，不能增加或移除元素
+
 ### 填充
 
 - public static void fill(数组 a, 数组 val) 只能用一个值进行填充，如果是对象其实是复制同一个对象填充
