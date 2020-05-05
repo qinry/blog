@@ -98,18 +98,18 @@ PrintStream|PrintWriter
 
 ### 常用的读写方法
 
-InputStream或Reader都有`int read()`方法,OutputStream或Writer都有`write(int)`。
+InputStream或Reader都有`int read()`方法,OutputStream或Writer都有`void write(int)`。
 
 基本读写操作:
 
 1. 缓冲输入: BufferedReader的`String readLine()`(读取一行字符串，除去换行符'\n')
 2. 数据格式化输入: DataInputStream、RandomAccessFile的`byte readByte()`、`String readUTF()`等
-3. 打印输出:PrintWriter、PrintStream的`print()`、`println()`、`printf()`的各种重载方法
+3. 打印输出:PrintWriter、PrintStream的`print()`、`println()`、`void printf()`的各种重载方法
 4. 数据格式化输出:DataOutputStream、RandomAccessFile的`writeDouble(double)`、`writeUTF(String)`等
 
 ### RandomAccessFile类
 
-其构造器第一个参数文件路径名,第二参数是"r"表示只读或"rw"读写。`getFilePointer()`获得文件位置,`seek()`移动文件位置,`length()`表示文件最大尺寸。它绝大功能已被nio存储映射文件取代。
+其构造器第一个参数文件路径名,第二参数是"r"表示只读或"rw"读写。`long getFilePointer()`获得文件位置,`seek(long)`移动文件位置,`long length()`表示文件最大尺寸。它绝大功能已被nio存储映射文件取代。
 
 ## 标准I/O
 
