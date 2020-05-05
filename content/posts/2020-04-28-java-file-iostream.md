@@ -102,10 +102,10 @@ InputStream或Reader都有`int read()`方法,OutputStream或Writer都有`write(i
 
 基本读写操作:
 
-1. 缓冲输入: BufferedReader的`String readLine()`
-2. 数据格式化输入: DataInputStream、RandomAccessFile的`byte readByte()`、`char readUTF()`等
+1. 缓冲输入: BufferedReader的`String readLine()`(读取一行字符串，除去换行符'\n')
+2. 数据格式化输入: DataInputStream、RandomAccessFile的`byte readByte()`、`String readUTF()`等
 3. 打印输出:PrintWriter、PrintStream的`print()`、`println()`、`printf()`的各种重载方法
-4. 数据格式化输出:DataOutputStream、RandomAccessFile的`writeDouble(double)`、`writeUTF(char)`等
+4. 数据格式化输出:DataOutputStream、RandomAccessFile的`writeDouble(double)`、`writeUTF(String)`等
 
 ### RandomAccessFile类
 
