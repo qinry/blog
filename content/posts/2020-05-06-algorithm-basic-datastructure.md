@@ -225,45 +225,6 @@ public class Stack<Item> implements Iterable<Item> {
 }
 ```
 
-### 3.Dijkstra的双栈算术表达式求值算法
-
-考虑未省略括号的表达式，以求简单，省略括号的表达式要添加处理相应的优先级规则
-
-```java
-import java.util.Scanner;
-public class Evaluate {
-public static void main(String[] args) {
-        Stack<String> ops = new Stack<String>(); // 操作符栈
-        Stack<Double> vals = new Stack<Double>(); // 操作数栈
-        Scanner in = new Scanner(System.in);
-        while(in.hasNext()) {
-            // Windows下，扫描完成时ctrl + z，才会返回结果
-            // Linux下，扫描完成时ctrl + d, 才返回结果
-            String s = in.next();
-            if(s.equals("(")) continue;
-            else if(s.equals("+"))    ops.push(s);
-            else if(s.equals("-"))    ops.push(s);
-            else if(s.equals("*"))    ops.push(s);
-            else if(s.equals("/"))    ops.push(s);
-            else if(s.equals("sqrt")) ops.push(s);
-            else if(s.equals(")")) {
-                String op = ops.pop();
-                double v = vals.pop();
-                if(op.equals("+"))         v = vals.pop() + v;
-                else if(op.equals("-"))    v = vals.pop() - v;
-                else if(op.equals("*"))    v = vals.pop() * v;
-                else if(op.equals("/"))    v = vals.pop() / v;
-                else if(op.equals("sqrt")) v = Math.sqrt(v);
-                vals.push(v);
-            }
-            else vals.push(Double.parseDouble(s));
-        }
-       System.out.println(vals.pop());
-    }
-}
-
-```
-
 ## 二、队列
 
 ### 1. 动态调整大小的数组实现
@@ -440,6 +401,310 @@ public class Bag<Item> implements Iterable<Item> {
                 throw new UnsupportedOperationException();
             }
         };
+    }
+}
+```
+
+## 运用例子
+
+### Dijkstra的双栈算术表达式求值算法
+
+考虑未省略括号的表达式，以求简单，省略括号的表达式要添加处理相应的优先级规则
+
+```java
+import java.util.Scanner;
+public class Evaluate {
+public static void main(String[] args) {
+        Stack<String> ops = new Stack<String>(); // 操作符栈
+        Stack<Double> vals = new Stack<Double>(); // 操作数栈
+        Scanner in = new Scanner(System.in);
+        while(in.hasNext()) {
+            // Windows下，扫描完成时ctrl + z，才会返回结果
+            // Linux下，扫描完成时ctrl + d, 才返回结果
+            String s = in.next();
+            if(s.equals("(")) continue;
+            else if(s.equals("+"))    ops.push(s);
+            else if(s.equals("-"))    ops.push(s);
+            else if(s.equals("*"))    ops.push(s);
+            else if(s.equals("/"))    ops.push(s);
+            else if(s.equals("sqrt")) ops.push(s);
+            else if(s.equals(")")) {
+                String op = ops.pop();
+                double v = vals.pop();
+                if(op.equals("+"))         v = vals.pop() + v;
+                else if(op.equals("-"))    v = vals.pop() - v;
+                else if(op.equals("*"))    v = vals.pop() * v;
+                else if(op.equals("/"))    v = vals.pop() / v;
+                else if(op.equals("sqrt")) v = Math.sqrt(v);
+                vals.push(v);
+            }
+            else vals.push(Double.parseDouble(s));
+        }
+       System.out.println(vals.pop());
+    }
+}
+
+```
+
+### 中序表达式转为后序表达式
+
+#### 不考虑优先级
+
+```java
+import java.util.Scanner;
+public class InfixToPostfix {
+    public static void main(String[] args) {
+        Stack<String> stack = new Stack<String>();
+        Scanner stdin = new Scanner(System.in );
+        while (stdin.hasNext()) {
+            String s = stdin.next();
+            if      (s.equals("+")) stack.push(s);
+            else if (s.equals("*")) stack.push(s);
+            else if (s.equals(")")) System.out.print(stack.pop() + " ");
+            else if (s.equals("(")) System.out.print("");
+            else System.out.print(s + " ");
+        }
+        System.out.println();
+    }
+}
+```
+
+#### 考虑优先级
+
+```java
+import java.util.Scanner;
+import java.util.TreeMap;
+public class InfixToPostfixWithPrecedence {
+    public static void main(String[] args) {
+        Scanner stdin = new Scanner(System.in);
+        Stack<String> stack = new Stack<String>();
+
+        TreeMap<String, Integer> precedence = new TreeMap<String, Integer>();
+        precedence.put("(", 0);
+        precedence.put(")", 0);
+        precedence.put("+", 1);
+        precedence.put("-", 1);
+        precedence.put("*", 2);
+        precedence.put("/", 2);
+
+        while(stdin.hasNext()) {
+            String s = stdin.next();
+            if(!precedence.containsKey(s)) {
+                System.out.print(s + " ");
+                continue;
+            }
+            while(true) {
+                if(stack.isEmpty() || s.equals("(")) {
+                    stack.push(s);
+                    break;
+                } else if(s.equals(")")) {
+                    System.out.print(stack.pop() + " ");
+                    if(stack.peek().equals("(")) {
+                        stack.pop();
+                        break;
+                    }
+                } else if(precedence.get(s) > precedence.get(stack.peek())) {
+                        stack.push(s);
+                        break;
+                } else {
+                        System.out.print(stack.pop() + " ");
+                }
+            }
+        }
+    }
+    while(!stack.isEmpty())
+    System.out.print(stack.pop() + " ");
+    stdin.close();
+    }
+}
+```
+
+### 求后序表达式值
+
+```java
+import java.util.Scanner;
+public class EvaluatePostfix {
+    public static void main(String[] args) {
+        Stack<Integer> stack = new Stack<Integer>();
+        Scanner stdin = new Scanner(System.in );
+        while (stdin.hasNext()) {
+            String s = stdin.next();
+            if(s.equals("+")) {
+                int val = stack.pop();
+                stack.push(stack.pop() + val);
+            } else if (s.equals("*")) {
+                int val = stack.pop();
+                stack.push(stack.pop() * val);
+            } else if(s.equals("-")) {
+                int val = stack.pop();
+                stack.push(stack.pop() - val);
+            } else if(s.equals("/")) {
+                int val = stack.pop();
+                stack.push(stack.pop() / val);
+            }
+            else stack.push(Integer.parseInt(s));
+        }
+        StdOut.println(stack.pop());
+    }
+}
+```
+
+### 带有优先级的中序表达式求值
+
+```java
+import java.util.Scanner;
+import java.util.TreeMap;
+public class EvaluateDeluxe {
+    public static double eval(String op, double val1, double val2) {
+        if (op.equals("+")) return val1 + val2;
+        if (op.equals("-")) return val1 - val2;
+        if (op.equals("/")) return val1 / val2;
+        if (op.equals("*")) return val1 * val2;
+        throw new RuntimeException("Invalid operator");
+    }
+
+    public static void main(String[] args) {
+        TreeMap<String, Integer> precedence = new TreeMap<String, Integer>();
+        precedence.put("(", 0);
+        precedence.put(")", 0);  
+        precedence.put("+", 1);
+        precedence.put("-", 1);
+        precedence.put("*", 2);
+        precedence.put("/", 2);
+
+        Stack<String> ops  = new Stack<String>();
+        Stack<Double> vals = new Stack<Double>();
+
+        Scanner stdin = new Scanner(System.in);
+        while (stdin.hasNext()) {
+
+            String s = stdin.next();
+
+            // 处理数字
+            if (!precedence.containsKey(s)) {
+                vals.push(Double.parseDouble(s));
+                continue;
+            }
+
+            // 处理符号
+            while (true) {
+                if (ops.isEmpty() || s.equals("(") || (precedence.get(s) > precedence.get(ops.peek()))) {
+                    ops.push(s);
+                    break;
+                }
+
+                // 计算表达式
+                String op = ops.pop();
+
+                if (op.equals("(")) {
+                    assert s.equals(")");
+                    break;
+                }
+
+                else {
+                    double val2 = vals.pop();
+                    double val1 = vals.pop();
+                    vals.push(eval(op, val1, val2));
+                }
+            }
+        }
+
+        while (!ops.isEmpty()) {
+            String op = ops.pop();
+            double val2 = vals.pop();
+            double val1 = vals.pop();
+            vals.push(eval(op, val1, val2));
+        }
+
+        System.out.println(vals.pop());
+        assert vals.isEmpty();
+        assert ops.isEmpty();
+    }
+}
+```
+
+### 约瑟夫问题
+
+```java
+public class Josephus {
+    public static void main(String[] args) {
+        int arg1 = Integer.parseInt(args[0]);
+        int arg2 = Integer.parseInt(args[1]);
+        Queue<Integer> q = new Queue<Integer>();
+        for(int i = 0; i < arg1; i++) {
+            q.enqueue(i);
+        }
+
+        while(!q.isEmpty()) {
+            for(int i = 1; i < arg2; i++)
+                q.enqueue(q.dequeue());
+            System.out.print(q.dequeue() + " ");
+        }
+    }
+}
+
+```
+
+### 平衡括号
+
+```java
+import java.util.Scanner;
+public class Parentheses {
+    private static final char LEFT_PAREN     = '(';
+    private static final char RIGHT_PAREN    = ')';
+    private static final char LEFT_BRACE     = '{';
+    private static final char RIGHT_BRACE    = '}';
+    private static final char LEFT_BRACKET   = '[';
+    private static final char RIGHT_BRACKET  = ']';
+
+    public static boolean isBalanced(String s) {
+        Stack<Character> stack = new Stack<Character>();
+        for (int i = 0; i < s.length(); i++) {
+            if (s.charAt(i) == LEFT_PAREN)   stack.push(LEFT_PAREN);
+            if (s.charAt(i) == LEFT_BRACE)   stack.push(LEFT_BRACE);
+            if (s.charAt(i) == LEFT_BRACKET) stack.push(LEFT_BRACKET);
+
+            if (s.charAt(i) == RIGHT_PAREN) {
+                if (stack.isEmpty())           return false;
+                if (stack.pop() != LEFT_PAREN) return false;
+            }
+
+            else if (s.charAt(i) == RIGHT_BRACE) {
+                if (stack.isEmpty())           return false;
+                if (stack.pop() != LEFT_BRACE) return false;
+            }
+
+            else if (s.charAt(i) == RIGHT_BRACKET) {
+                if (stack.isEmpty())             return false;
+                if (stack.pop() != LEFT_BRACKET) return false;
+            }
+        }
+        return stack.isEmpty();
+    }
+
+
+    public static void main(String[] args) {
+        Scanner stdin = new Scanner(System.in);
+        String s = stdin.nextLine().trim();
+        System.out.println(isBalanced(s));
+    }
+}
+
+```
+
+### 十进制转二进制
+
+```java
+public class DecToBin {
+    public static void main(String[] args) {
+        Stack<Integer> s = new Stack<Integer>();
+        while (n > 0) {
+            s.push(n % 2);
+            n = n / 2;
+        }
+        while (!s.isEmpty())
+            System.out.print(s.pop());
+        System.out.println();
     }
 }
 ```
