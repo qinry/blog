@@ -70,11 +70,15 @@ public class UseCaseTracker {
 
 ## java.lang包中的标准注解
 
-@Override：表示当前的方法定义将覆盖基类的方法。如果你不小心拼写错误，或者方法签名被错误拼写的时候，编译器就会发出错误提示。
-@Deprecated：如果使用该注解的元素被调用，编译器就会发出警告信息。
-@SuppressWarnings：关闭不当的编译器警告信息。
-@SafeVarargs：在 Java 7 中加入用于禁止对具有泛型varargs参数的方法或构造函数的调用方发出警告。
-@FunctionalInterface：Java 8 中加入用于表示类型声明为函数式接口
+- @Override：表示当前的方法定义将覆盖基类的方法。如果你不小心拼写错误，或者方法签名被错误拼写的时候，编译器就会发出错误提示。
+
+- @Deprecated：如果使用该注解的元素被调用，编译器就会发出警告信息。
+
+- @SuppressWarnings：关闭不当的编译器警告信息。
+
+- @SafeVarargs：在 Java 7 中加入用于禁止对具有泛型varargs参数的方法或构造函数的调用方发出警告。
+
+- @FunctionalInterface：Java 8 中加入用于表示类型声明为函数式接口
 
 ## 元注解
 
