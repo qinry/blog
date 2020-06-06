@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <link href="https://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.62.0" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>初始化和清理 &middot; qinry&#39;s blog</title>
+  <meta name="description" content="" />
+
+  
+  <link type="text/css" rel="stylesheet" href="https://qinry.github.io/css/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="https://qinry.github.io/css/poole.css">
+  <link type="text/css" rel="stylesheet" href="https://qinry.github.io/css/syntax.css">
+  <link type="text/css" rel="stylesheet" href="https://qinry.github.io/css/hyde.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  
+</head>
+
+  <body class=" ">
+  <aside class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="https://qinry.github.io"><h1>qinry&#39;s blog</h1></a>
+      <p class="lead">
+       在此写下学习日志，努力充电中～ 
+      </p>
+    </div>
+
+    <nav>
+      <ul class="sidebar-nav">
+        <li><a href="https://github.com/qinry"> Github </a></li>
+      </ul>
+    </nav>
+
+    <p>&copy; 2020. All rights reserved. </p>
+  </div>
+</aside>
+
+    <main class="content container">
+    <div class="post">
+  <h1>初始化和清理</h1>
+  <time datetime=2019-10-20T09:28:44&#43;0800 class="post-date">Sun, Oct 20, 2019</time>
+  <h2 id="heading">构造器确保初始化</h2>
+<p>构造器确保初始化，名字与类名一致，允许重载，且是特殊的无返回值(与void不同)的方法。</p>
+<p>在Java中，初始化与创建绑定在一起的</p>
+<h2 id="heading-1">区别重载方法</h2>
+<p>通过不一样参数列表区分</p>
+<p>整型常数值传入方法被当做int, char类型值如果没有匹配char参数方法，char会提升为int</p>
+<h2 id="heading-2">默认构造器</h2>
+<p>就是指没有参数列表的构造器，如果未定义此方法，编译器会自动合成；若有定义，则不会自动创建</p>
+<h2 id="this">关键词this</h2>
+<p>只用在方法内部，表示当前对象的引用；如果在方法内调用同个类的另个方法，就不必使用this，直接调用即可。</p>
+<h3 id="heading-3">在构造器中调用构造器</h3>
+<p>注：尽管可以this调用一个构造器，但却不能调用两个。此外，必须将构造器调用置于最起始处，否则compiler报错</p>
+<h2 id="static">static方法</h2>
+<p>static方法一般不能调用非static方法，反过来却可以。</p>
+<p>注：Java禁止全局方法，但在类中置入static方法可以访问其他static方法和static域</p>
+<h2 id="----">清理 &ndash; 终结处理和垃圾回收</h2>
+<p>要知道：</p>
+<ol>
+<li>对象可能不被垃圾回收</li>
+<li>垃圾回收并等于“析构”</li>
+<li>垃圾回收（回收不使用内存）只与内存有关</li>
+</ol>
+<h3 id="finalize">finalize()方法</h3>
+<ul>
+<li>finalize()不该作为通用清理方法，针对特殊需求，比如通过new创建对象以外的方式分配空间，使用非Java代码，可用finalize()用本地方法调用</li>
+<li>验证对象终结条件</li>
+</ul>
+<h4 id="systemgc">System.gc()</h4>
+<p>强制进行终结</p>
+<p>注：Java不允许创建局部对象，必须使用<strong>new</strong>创建。“终结”和“垃圾回收”不保证发生，这是考虑到垃圾回收器自身的开销，当JVM面临内存耗尽，才很可能执行回收对象，恢复内存</p>
+<h4 id="-">垃圾回收器 （边回收空间，边重新排列对象，但不保证一定发生）</h4>
+<p>简单说说它的工作机制（详细见《深入理解Java虚拟机》，周志明著），采用自适应技术，会有内存页面调度（将页面移进移出硬盘，且显著影响性能）</p>
+<ul>
+<li>
+<p>停止-复制 ：先暂停程序，将存活的对象从旧堆复制到新堆，并且复制后的对象排列紧凑，未被复制的对象都是垃圾。复制的对象所绑定的引用要修正，以指向复制后的新对象。特点：维护空间比实际大，效率低。</p>
+</li>
+<li>
+<p>标记-清扫 ： 也会导致程序暂停。对存活的对象进行标记，所有对象标记完再清理未标记的，堆空间不连续，对象可能会重新整理。特点：针对少垃圾甚至无垃圾的情况效率才高，一般情况下效率低。</p>
+</li>
+<li>
+<p>分代 ： 块有对应的代数(generation count)，它是堆上分配较大的内存。其代数记录对象是否还存活。如果块在某处被引用，其代数增加。特点：对大量临时对象处理有帮助，定期进行完整清理&ndash;大对象不被复制（代数增加），内含小对象被复制并整理</p>
+</li>
+<li>
+<p>附加技术提速（特别是hotspot），即时编译器(Just-In Time, JIT)</p>
+</li>
+</ul>
+<p>类文件中字节码装载内存，有两方案：</p>
+<ul>
+<li>全部代码编译，缺点就是费时，可执行代码加长，导致页面调度，影响性能</li>
+<li>惰性评估（必要时才编译）</li>
+</ul>
+<h2 id="heading-4">成员初始化</h2>
+<ul>
+<li>指定初始化</li>
+<li>构造器初始化（给编程带来更大的灵活性） 自动初始化发生在调用构造器之前</li>
+</ul>
+<p>注：static可用于域，不可用于局部变量
+初始化顺序：先静态后非静态对象</p>
+<p>对象的创建过程：</p>
+<ol>
+<li>Java解释器查找类路径，指定(.class)文件</li>
+<li>载入(.class)文件，静态初始化只在class对象首次加载时进行1次</li>
+<li>为对象在堆上分配存储空间，所有类内基本成员设为默认值， 对象设为null</li>
+<li>执行指定初始化，在执行构造器</li>
+</ol>
+<h3 id="heading-5">静态子句和实例初始化</h3>
+<p>静态子句，当首次生成类的一个对象或首次访问类中static域，static子句执行一次
+子句形如:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">static</span> <span style="color:#f92672">{</span>
+ <span style="color:#75715e">/* ... */</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><p>非静态实例初始化像静态子句，只是左花括号前无关键字 <strong>static</strong></p>
+<h2 id="heading-6">数组初始化</h2>
+<h3 id="1">1.在定义处初始化的特殊形式</h3>
+<h4 id="1-1">(1).基本数据类型</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">int</span><span style="color:#f92672">[</span><span style="color:#f92672">]</span> a <span style="color:#f92672">=</span> <span style="color:#f92672">{</span> 1<span style="color:#f92672">,</span> 2<span style="color:#f92672">,</span> 3<span style="color:#f92672">,</span> 4<span style="color:#f92672">}</span><span style="color:#f92672">;</span>
+或 <span style="color:#66d9ef">int</span> a<span style="color:#f92672">[</span><span style="color:#f92672">]</span> <span style="color:#f92672">=</span> <span style="color:#f92672">{</span> 1<span style="color:#f92672">,</span> 2<span style="color:#f92672">,</span> 3<span style="color:#f92672">,</span> 4 <span style="color:#f92672">}</span>
+</code></pre></div><h4 id="2">(2).引用数据类型</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">Integer<span style="color:#f92672">[</span><span style="color:#f92672">]</span> b <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Integer<span style="color:#f92672">[</span><span style="color:#f92672">]</span><span style="color:#f92672">{</span>
+    <span style="color:#66d9ef">new</span> Integer<span style="color:#f92672">(</span>1<span style="color:#f92672">)</span><span style="color:#f92672">,</span>
+    <span style="color:#66d9ef">new</span> Integer<span style="color:#f92672">(</span>2<span style="color:#f92672">)</span><span style="color:#f92672">,</span>
+    3<span style="color:#f92672">,</span>
+<span style="color:#f92672">}</span><span style="color:#f92672">;</span>
+</code></pre></div><h3 id="2-1">2.可以不在定义除初始化的形式</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">int</span><span style="color:#f92672">[</span><span style="color:#f92672">]</span> a<span style="color:#f92672">;</span>
+Random rand <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Random<span style="color:#f92672">(</span>47<span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+a <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#66d9ef">int</span><span style="color:#f92672">[</span>rand<span style="color:#f92672">.</span><span style="color:#a6e22e">nextInt</span><span style="color:#f92672">(</span>20<span style="color:#f92672">)</span><span style="color:#f92672">]</span><span style="color:#f92672">;</span>
+<span style="color:#66d9ef">for</span> <span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> 0<span style="color:#f92672">;</span> i <span style="color:#f92672">&lt;</span> a<span style="color:#f92672">.</span><span style="color:#a6e22e">length</span><span style="color:#f92672">;</span> i<span style="color:#f92672">+</span><span style="color:#f92672">+</span><span style="color:#f92672">&gt;</span><span style="color:#f92672">)</span>
+    a<span style="color:#f92672">[</span>i<span style="color:#f92672">]</span> <span style="color:#f92672">=</span> rand<span style="color:#f92672">.</span><span style="color:#a6e22e">nextInt</span><span style="color:#f92672">(</span>100<span style="color:#f92672">)</span><span style="color:#f92672">;</span> <span style="color:#75715e">//  还要把对象赋值给数组元素才算完成初始化
+</span></code></pre></div><h2 id="heading-7">可变参数列表</h2>
+<p>形如:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">returnType <span style="color:#a6e22e">methodName</span><span style="color:#f92672">(</span>Object<span style="color:#f92672">.</span><span style="color:#f92672">.</span><span style="color:#f92672">.</span> args<span style="color:#f92672">)</span> <span style="color:#f92672">{</span> <span style="color:#75715e">/* */</span> <span style="color:#f92672">}</span>
+</code></pre></div><p>编译器会把参数列表转变为Object数组，如果参数列表像Integer数组这样的非Object数组要转型为一个Object数组</p>
+<h2 id="heading-8">枚举类型</h2>
+<p>与switch 语句配合相当合适
+如何定义枚举类型</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">enum</span> Color <span style="color:#f92672">{</span>
+    <span style="color:#75715e">// 整型常量集
+</span><span style="color:#75715e"></span>    RED<span style="color:#f92672">,</span> GREEN<span style="color:#f92672">,</span> BLUE
+<span style="color:#f92672">}</span><span style="color:#f92672">;</span>
+</code></pre></div><p>如何使用</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">Color red <span style="color:#f92672">=</span> Color<span style="color:#f92672">.</span><span style="color:#a6e22e">RED</span><span style="color:#f92672">;</span>
+</code></pre></div><p>有类静态方法 <strong>static values()</strong> 得到enum常量构成的数组
+普通成员方法 <strong>ordinal()</strong> 得到enum常量声明的顺序(顺序是从0开始的)
+red.ordinal() 结果是 0</p>
+
+</div>
+
+
+    </main>
+
+    
+  </body>
+</html>

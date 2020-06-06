@@ -1,0 +1,6 @@
+[submodule "public"]
+	path = public
+	url = git@github.com:qinry/qinry.github.io.git
+[submodule "themes/hyde"]
+	path = themes/hyde
+	url = git@github.com:qinry/hugo-theme-hyde.git

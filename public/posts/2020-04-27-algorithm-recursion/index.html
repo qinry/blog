@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <link href="https://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.62.0" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>简简单单知道递归 &middot; qinry&#39;s blog</title>
+  <meta name="description" content="" />
+
+  
+  <link type="text/css" rel="stylesheet" href="https://qinry.github.io/css/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="https://qinry.github.io/css/poole.css">
+  <link type="text/css" rel="stylesheet" href="https://qinry.github.io/css/syntax.css">
+  <link type="text/css" rel="stylesheet" href="https://qinry.github.io/css/hyde.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  
+</head>
+
+  <body class=" ">
+  <aside class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="https://qinry.github.io"><h1>qinry&#39;s blog</h1></a>
+      <p class="lead">
+       在此写下学习日志，努力充电中～ 
+      </p>
+    </div>
+
+    <nav>
+      <ul class="sidebar-nav">
+        <li><a href="https://github.com/qinry"> Github </a></li>
+      </ul>
+    </nav>
+
+    <p>&copy; 2020. All rights reserved. </p>
+  </div>
+</aside>
+
+    <main class="content container">
+    <div class="post">
+  <h1>简简单单知道递归</h1>
+  <time datetime=2020-04-27T20:21:23&#43;0800 class="post-date">Mon, Apr 27, 2020</time>
+  <h3 id="heading">递归的含义</h3>
+<p>递归就是函数或方法通过调用自己本身来达到解决问题的目的，这种解法形式叫递归。用欧几里得算法的Java描述说明问题：</p>
+<p>任意一对非负整数p，q(p &gt; q),设r是p与q相除的余数。p，q的最大公约数等于q，p的最大公约数。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">gcd</span><span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> p<span style="color:#f92672">,</span> <span style="color:#66d9ef">int</span> q<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+    <span style="color:#66d9ef">if</span><span style="color:#f92672">(</span>q <span style="color:#f92672">=</span><span style="color:#f92672">=</span> 0<span style="color:#f92672">)</span> <span style="color:#66d9ef">return</span> p<span style="color:#f92672">;</span>
+    <span style="color:#66d9ef">int</span> r <span style="color:#f92672">=</span> p <span style="color:#f92672">%</span> q<span style="color:#f92672">;</span>
+    <span style="color:#66d9ef">return</span> gcd<span style="color:#f92672">(</span>q<span style="color:#f92672">,</span> r<span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><h3 id="heading-1">为什么使用递归</h3>
+<ul>
+<li>
+<p>面对某些复杂的问题使用递归可以很好的描述并有效解决，例如汉诺塔问题、二叉树的遍历、查询目录等等。</p>
+</li>
+<li>
+<p>递归使算法实现的代码更加简洁，而且易懂。</p>
+</li>
+</ul>
+<h3 id="heading-2">误区——迭代一定比递归的效率高</h3>
+<p>当递归使用的是尾递归本质其是就是迭代，效率不亚于普通迭代(不考虑函数的开销，递归比迭代更好)。如果使用使用双递归、三递归等等，才会算法极度低效，这是用之不当所致</p>
+<h3 id="heading-3">如何使用递归</h3>
+<p>使用数学归纳法诠释重要三点：</p>
+<ol>
+<li>
+<p>递归总有一个最简单的情况——方法的第一句总是包含<code>return</code>的条件语句</p>
+</li>
+<li>
+<p>递归调用总是尝试解决一个规模更小的子问题，递归才能收敛到最简单的情况。</p>
+</li>
+<li>
+<p>递归调用的父问题和尝试解决的子问题之间不应该有交集。</p>
+</li>
+</ol>
+<h3 id="heading-4">一些递归的例子</h3>
+<h4 id="heading-5">阶乘</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">fact</span><span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> N<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">if</span><span style="color:#f92672">(</span>N <span style="color:#f92672">=</span><span style="color:#f92672">=</span> 0<span style="color:#f92672">)</span> <span style="color:#66d9ef">return</span> 1<span style="color:#f92672">;</span>
+        <span style="color:#66d9ef">return</span> N <span style="color:#f92672">*</span> fact<span style="color:#f92672">(</span>N <span style="color:#f92672">-</span> 1<span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><p>典型的尾递归，效率最高的递归形式</p>
+<h4 id="heading-6">斐波那契数列</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">fibonacci</span><span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> N<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">if</span><span style="color:#f92672">(</span>N <span style="color:#f92672">=</span><span style="color:#f92672">=</span> 0<span style="color:#f92672">)</span> <span style="color:#66d9ef">return</span> 0<span style="color:#f92672">;</span>
+        <span style="color:#66d9ef">if</span><span style="color:#f92672">(</span>N <span style="color:#f92672">=</span><span style="color:#f92672">=</span> 1<span style="color:#f92672">)</span> <span style="color:#66d9ef">return</span> 1<span style="color:#f92672">;</span>
+        <span style="color:#66d9ef">return</span> fibonacci<span style="color:#f92672">(</span>N <span style="color:#f92672">-</span> 2<span style="color:#f92672">)</span> <span style="color:#f92672">+</span> fibonacci<span style="color:#f92672">(</span>N <span style="color:#f92672">-</span> 1<span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><p>典型的双递归，子问题有重复了工作，问题有交集，故效率低于迭代形式
+迭代如下：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">fibonacci</span><span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> N<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+    <span style="color:#66d9ef">int</span> n_2 <span style="color:#f92672">=</span> 0<span style="color:#f92672">,</span> n_1 <span style="color:#f92672">=</span> 1<span style="color:#f92672">;</span>
+    <span style="color:#66d9ef">int</span> temp<span style="color:#f92672">;</span>
+    <span style="color:#66d9ef">for</span><span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> 0<span style="color:#f92672">;</span> i <span style="color:#f92672">&lt;</span> N<span style="color:#f92672">;</span> i<span style="color:#f92672">+</span><span style="color:#f92672">+</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        temp <span style="color:#f92672">=</span> n_2 <span style="color:#f92672">+</span> n_1<span style="color:#f92672">;</span>
+        n_2 <span style="color:#f92672">=</span> n_1<span style="color:#f92672">;</span>
+        n_1 <span style="color:#f92672">=</span> temp<span style="color:#f92672">;</span>
+    <span style="color:#f92672">}</span>
+    <span style="color:#66d9ef">return</span> n_2<span style="color:#f92672">;</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><h4 id="heading-7">底数，指数为非负整数的幂运算</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">pow</span><span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> X<span style="color:#f92672">,</span> <span style="color:#66d9ef">int</span> N<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+    <span style="color:#66d9ef">if</span><span style="color:#f92672">(</span>N <span style="color:#f92672">=</span><span style="color:#f92672">=</span> 0<span style="color:#f92672">)</span> <span style="color:#66d9ef">return</span> 1<span style="color:#f92672">;</span>
+    <span style="color:#66d9ef">if</span><span style="color:#f92672">(</span>N <span style="color:#f92672">=</span><span style="color:#f92672">=</span> 1<span style="color:#f92672">)</span> <span style="color:#66d9ef">return</span> X<span style="color:#f92672">;</span>
+    <span style="color:#66d9ef">if</span><span style="color:#f92672">(</span>N <span style="color:#f92672">%</span> 2 <span style="color:#f92672">=</span><span style="color:#f92672">=</span> 0<span style="color:#f92672">)</span>
+        <span style="color:#66d9ef">return</span> pow<span style="color:#f92672">(</span>X<span style="color:#f92672">*</span>X<span style="color:#f92672">,</span> N<span style="color:#f92672">/</span>2<span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+    <span style="color:#66d9ef">else</span>
+        <span style="color:#66d9ef">return</span> pow<span style="color:#f92672">(</span>X<span style="color:#f92672">*</span>X<span style="color:#f92672">,</span> N<span style="color:#f92672">/</span>2<span style="color:#f92672">)</span> <span style="color:#f92672">*</span> X<span style="color:#f92672">;</span>
+
+<span style="color:#f92672">}</span>
+</code></pre></div><p>根据条件分路解决规模更小子问题，递归调用次数随N递减不呈指数增长,而是线性增长,也是尾递归。</p>
+<h3 id="heading-8">扩展</h3>
+<h4 id="p-q">数学归纳法证明欧几里得算法能够计算任意一对非负整数p, q的最大公约数</h4>
+<p>假设p &gt; q，r为p除以q的余数,引证p,q的最大公约数等于q, r的最大公约数的结论。
+证明如下:</p>
+<p>(1).简单情况，p能被q整除，最大公约数即q</p>
+<p>(2)p不能q整除的情况，由于p,q的最大公约数等于q, r的最大公约数，
+令p = q,q=r, r 为新p, q的余数，p, q的最大公约数等于新q，r的最大公约数,以此重复如上p，q值的转换
+p和q往p能被q整除的情况收敛，它们的最大公约数一直等于原始p, q的最大公约数。</p>
+<p>(3).最后p能被q整除,再令p = q，q = r = 0，p值的为上一次转换的除数，q为余数。
+故最终p的值等于原始p, q的最大公约数。</p>
+
+</div>
+
+
+    </main>
+
+    
+  </body>
+</html>

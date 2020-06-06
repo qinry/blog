@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>algorithm on qinry&#39;s blog</title>
+    <link>https://qinry.github.io/tags/algorithm/</link>
+    <description>Recent content in algorithm on qinry&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Wed, 06 May 2020 08:24:50 +0800</lastBuildDate>
+    
+	<atom:link href="https://qinry.github.io/tags/algorithm/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>背包、栈、队列实现</title>
+      <link>https://qinry.github.io/posts/2020-05-06-algorithm-basic-datastructure/</link>
+      <pubDate>Wed, 06 May 2020 08:24:50 +0800</pubDate>
+      
+      <guid>https://qinry.github.io/posts/2020-05-06-algorithm-basic-datastructure/</guid>
+      <description>API:
+背包
+public class Bag&amp;lt;Item&amp;gt; implements Iterable&amp;lt;Item&amp;gt;
+   方法 功能描述     Bag() 创建一个空包   void add(Item item) 添加一个元素   boolean isEmpty() 背包是否为空   int size() 背包中的元素数量     先进先出队列(FIFO)
+public class Queue&amp;lt;Item&amp;gt; implements Iterable&amp;lt;Item&amp;gt;
+   方法 功能描述     Queue() 创建一个空队列   void enqueue(Item item) 添加一个元素   Item dequeue() 删除最早添加的元素   boolean isEmpty() 队列是否为空   int size() 队列中的元素数量     下压栈(LIFO)</description>
+    </item>
+    
+    <item>
+      <title>简简单单知道递归</title>
+      <link>https://qinry.github.io/posts/2020-04-27-algorithm-recursion/</link>
+      <pubDate>Mon, 27 Apr 2020 20:21:23 +0800</pubDate>
+      
+      <guid>https://qinry.github.io/posts/2020-04-27-algorithm-recursion/</guid>
+      <description>递归的含义 递归就是函数或方法通过调用自己本身来达到解决问题的目的，这种解法形式叫递归。用欧几里得算法的Java描述说明问题：
+任意一对非负整数p，q(p &amp;gt; q),设r是p与q相除的余数。p，q的最大公约数等于q，p的最大公约数。
+public static int gcd(int p, int q) {if(q == 0) return p;int r = p % q;return gcd(q, r);}为什么使用递归   面对某些复杂的问题使用递归可以很好的描述并有效解决，例如汉诺塔问题、二叉树的遍历、查询目录等等。
+  递归使算法实现的代码更加简洁，而且易懂。
+  误区——迭代一定比递归的效率高 当递归使用的是尾递归本质其是就是迭代，效率不亚于普通迭代(不考虑函数的开销，递归比迭代更好)。如果使用使用双递归、三递归等等，才会算法极度低效，这是用之不当所致
+如何使用递归 使用数学归纳法诠释重要三点：
+  递归总有一个最简单的情况——方法的第一句总是包含return的条件语句
+  递归调用总是尝试解决一个规模更小的子问题，递归才能收敛到最简单的情况。
+  递归调用的父问题和尝试解决的子问题之间不应该有交集。
+  一些递归的例子 阶乘 public static int fact(int N) {if(N == 0) return 1;return N * fact(N - 1);}典型的尾递归，效率最高的递归形式</description>
+    </item>
+    
+    <item>
+      <title>数据结构与算法分析(笔记) -- 开始</title>
+      <link>https://qinry.github.io/posts/2019-10-17-algorithm-beginning/</link>
+      <pubDate>Thu, 17 Oct 2019 23:29:10 +0800</pubDate>
+      
+      <guid>https://qinry.github.io/posts/2019-10-17-algorithm-beginning/</guid>
+      <description>递归使用的基本法则  基准情形：要有退出条件 不断推进：从初始条件趋向退出条件 设计准则 ：假设递归准确执行 合成效益法则：防止重复工作，比如生成斐波那契数列的递归实现使用双递归，导致一些工作的重复，进而影响效率  递归符合前三个法则才能正确进行，符合第四法则递归的使用才有意义。虽然递归的代码逻辑清晰，不过某些情况效率不高。当递归不能很好解决问题时，可能考虑采用迭代。
+算法分析 4种描述算法效率的数学模型，常用的有大O记法
+大O记法：时间T(N) = O( f( N ) ), 意思是T( N ) 的相对增长率小于 f(N)
+计算运行时间 一般法则
+ FOR循环 嵌套的FOR循环 顺序语句 IF/ELSE语句   最大子序列和问题解 算法1（嵌套3层for循环） intMaxSubsequenceSum(const int A[], int N){int ThisSum, MaxSum, i, j, k;MaxSum = 0;for (i = 0; i &amp;lt; N; i++)for (j = i; j &amp;lt; N; j++){ThisSum = 0;for (k = i; k &amp;lt;= j; k++)ThisSum += A[k];if (ThisSum &amp;gt; MaxSum)MaxSum = ThisSum;}return MaxSum;}算法2（嵌套2层for循环） intMaxSubsequenceSum(const int A[], int N){int ThisSum, MaxSum, i, j;MaxSum = 0;for (i = 0; i &amp;lt; N; i++){ThisSum = 0;for (j = i; j &amp;lt; N; j++){ThisSum += A[j];if (ThisSum &amp;gt; MaxSum)MaxSum = ThisSum;}}return MaxSum;}算法3（分治） int Max3(int x, int y, int z){return (x &amp;gt; y?</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <link href="https://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.62.0" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>字符串 &middot; qinry&#39;s blog</title>
+  <meta name="description" content="" />
+
+  
+  <link type="text/css" rel="stylesheet" href="https://qinry.github.io/css/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="https://qinry.github.io/css/poole.css">
+  <link type="text/css" rel="stylesheet" href="https://qinry.github.io/css/syntax.css">
+  <link type="text/css" rel="stylesheet" href="https://qinry.github.io/css/hyde.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  
+</head>
+
+  <body class=" ">
+  <aside class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="https://qinry.github.io"><h1>qinry&#39;s blog</h1></a>
+      <p class="lead">
+       在此写下学习日志，努力充电中～ 
+      </p>
+    </div>
+
+    <nav>
+      <ul class="sidebar-nav">
+        <li><a href="https://github.com/qinry"> Github </a></li>
+      </ul>
+    </nav>
+
+    <p>&copy; 2020. All rights reserved. </p>
+  </div>
+</aside>
+
+    <main class="content container">
+    <div class="post">
+  <h1>字符串</h1>
+  <time datetime=2019-11-25T09:46:16&#43;0800 class="post-date">Mon, Nov 25, 2019</time>
+  <h2 id="string">String对象不可变</h2>
+<p>String对象被创建后不可修改，某些方法看似是修改源字符串，其实是重新创建新字符串来代替。</p>
+<h2 id="stringbuilder">StringBuilder</h2>
+<p>在循环体中对String对象反复使用 &ldquo;+=&rdquo;, &ldquo;+&rdquo; 运算符，以达字符串的拼接,其实效率不高。因为&quot;+&rdquo;,&ldquo;+=&quot;工作实际上虚拟机会自动创建StringBuilder来起到拼接效果，每次循环建立一个StringBuilder,这将导致资源的浪费。可以在循环体外创建一个StringBuilder，每次调用append()方法拼接字符串，最后toString()返回字符串。如下:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Java" data-lang="Java"><span style="color:#f92672">import</span> java.util.*<span style="color:#f92672">;</span>
+<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Mango</span> <span style="color:#f92672">{</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span>String<span style="color:#f92672">[</span><span style="color:#f92672">]</span> args<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        Random rand <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Random<span style="color:#f92672">(</span>47<span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+        StringBuilder result <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> StringBuilder<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;[&#34;</span><span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+        <span style="color:#66d9ef">for</span> <span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> 0<span style="color:#f92672">;</span> i <span style="color:#f92672">&lt;</span> 10<span style="color:#f92672">;</span> i<span style="color:#f92672">+</span><span style="color:#f92672">+</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+            result<span style="color:#f92672">.</span><span style="color:#a6e22e">append</span><span style="color:#f92672">(</span>rand<span style="color:#f92672">.</span><span style="color:#a6e22e">nextInt</span><span style="color:#f92672">(</span>100<span style="color:#f92672">)</span><span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+            result<span style="color:#f92672">.</span><span style="color:#a6e22e">appen</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;, &#34;</span><span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+        <span style="color:#f92672">}</span>
+        result<span style="color:#f92672">.</span><span style="color:#a6e22e">delete</span><span style="color:#f92672">(</span>result<span style="color:#f92672">.</span><span style="color:#a6e22e">length</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span> <span style="color:#f92672">-</span> 2<span style="color:#f92672">,</span> result<span style="color:#f92672">.</span><span style="color:#a6e22e">length</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span><span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+        result<span style="color:#f92672">.</span><span style="color:#a6e22e">append</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;]&#34;</span><span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+        String s <span style="color:#f92672">=</span> result<span style="color:#f92672">.</span><span style="color:#a6e22e">toString</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>s<span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><h2 id="string-1">String的常用方法</h2>
+<p>以下方法改变内容返回的String都是新的String, 没有改变内容返回的String都是原始字符串的引用</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Java" data-lang="Java">构造器
+<span style="color:#a6e22e">String</span><span style="color:#f92672">(</span>String<span style="color:#f92672">)</span>
+String<span style="color:#f92672">(</span>StringBuilder<span style="color:#f92672">)</span>
+String<span style="color:#f92672">(</span>StringBuffer<span style="color:#f92672">)</span>
+String<span style="color:#f92672">(</span><span style="color:#66d9ef">char</span><span style="color:#f92672">[</span><span style="color:#f92672">]</span><span style="color:#f92672">)</span>
+String<span style="color:#f92672">(</span><span style="color:#66d9ef">byte</span><span style="color:#f92672">[</span><span style="color:#f92672">]</span><span style="color:#f92672">)</span>
+
+长度
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">length</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span>
+
+索引
+<span style="color:#66d9ef">char</span> <span style="color:#a6e22e">charAt</span><span style="color:#f92672">(</span><span style="color:#66d9ef">int</span><span style="color:#f92672">)</span>
+
+复制
+<span style="color:#66d9ef">char</span><span style="color:#f92672">[</span><span style="color:#f92672">]</span> <span style="color:#a6e22e">getChars</span><span style="color:#f92672">(</span><span style="color:#66d9ef">int</span><span style="color:#f92672">,</span> <span style="color:#66d9ef">int</span><span style="color:#f92672">,</span> <span style="color:#66d9ef">char</span><span style="color:#f92672">[</span><span style="color:#f92672">]</span><span style="color:#f92672">,</span> <span style="color:#66d9ef">int</span><span style="color:#f92672">)</span> <span style="color:#75715e">// 参数:起始和终止索引, 数组，数组的起始索引
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">byte</span><span style="color:#f92672">[</span><span style="color:#f92672">]</span> <span style="color:#a6e22e">getBytes</span><span style="color:#f92672">(</span><span style="color:#66d9ef">int</span><span style="color:#f92672">,</span> <span style="color:#66d9ef">int</span><span style="color:#f92672">,</span> <span style="color:#66d9ef">byte</span><span style="color:#f92672">[</span><span style="color:#f92672">]</span><span style="color:#f92672">,</span> <span style="color:#66d9ef">int</span><span style="color:#f92672">)</span>
+
+生成Char数组
+<span style="color:#66d9ef">char</span><span style="color:#f92672">[</span><span style="color:#f92672">]</span> <span style="color:#a6e22e">toCharArray</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span>
+
+匹配
+
+比较
+<span style="color:#66d9ef">boolean</span> <span style="color:#a6e22e">equals</span><span style="color:#f92672">(</span>String<span style="color:#f92672">)</span> <span style="color:#75715e">// 内容上的比较是否相等
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">boolean</span> <span style="color:#a6e22e">equalsIgnoreCase</span><span style="color:#f92672">(</span>String<span style="color:#f92672">)</span> <span style="color:#75715e">// 忽略大小写比较内容是否相等
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">compareTo</span><span style="color:#f92672">(</span>String<span style="color:#f92672">)</span> <span style="color:#75715e">// 大小写不等价
+</span><span style="color:#75715e"></span>区域比较
+<span style="color:#66d9ef">boolean</span> <span style="color:#a6e22e">regionMatches</span><span style="color:#f92672">(</span><span style="color:#66d9ef">int</span><span style="color:#f92672">,</span> String<span style="color:#f92672">,</span> <span style="color:#66d9ef">int</span><span style="color:#f92672">,</span> <span style="color:#66d9ef">int</span><span style="color:#f92672">)</span> <span style="color:#75715e">// 参数:索引，模式字符串，串的偏移量， 比较长度
+</span><span style="color:#75715e"></span>开头比较
+<span style="color:#66d9ef">boolean</span> <span style="color:#a6e22e">startsWith</span><span style="color:#f92672">(</span>String<span style="color:#f92672">)</span>
+<span style="color:#66d9ef">boolean</span> <span style="color:#a6e22e">startsWith</span><span style="color:#f92672">(</span>String<span style="color:#f92672">,</span> <span style="color:#66d9ef">int</span><span style="color:#f92672">)</span>  <span style="color:#75715e">// 参数: 模式字符串，串的偏移量
+</span><span style="color:#75715e"></span>末尾比较
+<span style="color:#66d9ef">boolean</span> <span style="color:#a6e22e">endsWith</span><span style="color:#f92672">(</span>String<span style="color:#f92672">)</span>
+<span style="color:#66d9ef">boolean</span> <span style="color:#a6e22e">endsWith</span><span style="color:#f92672">(</span>String<span style="color:#f92672">,</span> <span style="color:#66d9ef">int</span><span style="color:#f92672">)</span>
+包含
+<span style="color:#66d9ef">boolean</span> <span style="color:#a6e22e">contains</span><span style="color:#f92672">(</span>CharSequence<span style="color:#f92672">)</span>
+取索引
+<span style="color:#75715e">// 从头到尾搜索 失败返回 -1
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">indexOf</span><span style="color:#f92672">(</span>String<span style="color:#f92672">)</span>
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">indexOf</span><span style="color:#f92672">(</span><span style="color:#66d9ef">char</span><span style="color:#f92672">)</span>
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">indexOf</span><span style="color:#f92672">(</span><span style="color:#66d9ef">char</span><span style="color:#f92672">,</span> <span style="color:#66d9ef">int</span><span style="color:#f92672">)</span> <span style="color:#75715e">// 参数: 字符, 起始索引
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">indexOf</span><span style="color:#f92672">(</span>String<span style="color:#f92672">,</span> <span style="color:#66d9ef">int</span><span style="color:#f92672">)</span>  <span style="color:#75715e">// 参数: 字符串， 起始索引
+</span><span style="color:#75715e"></span><span style="color:#75715e">// 从尾向前搜索 失败返归 -1
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">lastIndexOf</span><span style="color:#f92672">(</span>String<span style="color:#f92672">)</span>
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">lastIndexOf</span><span style="color:#f92672">(</span><span style="color:#66d9ef">char</span><span style="color:#f92672">)</span>
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">lastIndexOf</span><span style="color:#f92672">(</span><span style="color:#66d9ef">char</span><span style="color:#f92672">,</span> <span style="color:#66d9ef">int</span><span style="color:#f92672">)</span>
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">lastIndexOf</span><span style="color:#f92672">(</span>String<span style="color:#f92672">,</span> <span style="color:#66d9ef">int</span><span style="color:#f92672">)</span>
+
+
+
+子字符串
+String <span style="color:#a6e22e">subString</span><span style="color:#f92672">(</span><span style="color:#66d9ef">int</span><span style="color:#f92672">)</span> <span style="color:#75715e">// 参数:起始索引
+</span><span style="color:#75715e"></span>String <span style="color:#a6e22e">subString</span><span style="color:#f92672">(</span><span style="color:#66d9ef">int</span><span style="color:#f92672">,</span> <span style="color:#66d9ef">int</span><span style="color:#f92672">)</span> <span style="color:#75715e">// 参数: 起始和终止索引
+</span><span style="color:#75715e"></span>
+拼接
+String <span style="color:#a6e22e">concat</span><span style="color:#f92672">(</span>String<span style="color:#f92672">)</span>
+
+替换
+String <span style="color:#a6e22e">replace</span><span style="color:#f92672">(</span><span style="color:#66d9ef">char</span><span style="color:#f92672">,</span> <span style="color:#66d9ef">char</span><span style="color:#f92672">)</span>
+String <span style="color:#a6e22e">replace</span><span style="color:#f92672">(</span>CharSequence<span style="color:#f92672">,</span> CharSequence<span style="color:#f92672">)</span>
+
+大小写转换
+String <span style="color:#a6e22e">toLowerCase</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span>
+String <span style="color:#a6e22e">toUpperCase</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span>
+
+转变为字符串
+<span style="color:#66d9ef">static</span> String <span style="color:#a6e22e">valueOf</span><span style="color:#f92672">(</span>Object<span style="color:#f92672">|</span><span style="color:#66d9ef">char</span><span style="color:#f92672">|</span><span style="color:#66d9ef">boolean</span><span style="color:#f92672">|</span><span style="color:#66d9ef">int</span><span style="color:#f92672">|</span><span style="color:#66d9ef">long</span><span style="color:#f92672">|</span><span style="color:#66d9ef">float</span><span style="color:#f92672">|</span><span style="color:#66d9ef">double</span><span style="color:#f92672">)</span>
+<span style="color:#66d9ef">static</span> String <span style="color:#a6e22e">valueOf</span><span style="color:#f92672">(</span><span style="color:#66d9ef">char</span><span style="color:#f92672">[</span><span style="color:#f92672">]</span><span style="color:#f92672">)</span>
+<span style="color:#66d9ef">static</span> String <span style="color:#a6e22e">valueOf</span><span style="color:#f92672">(</span><span style="color:#66d9ef">char</span><span style="color:#f92672">[</span><span style="color:#f92672">]</span><span style="color:#f92672">,</span> <span style="color:#66d9ef">int</span><span style="color:#f92672">,</span> <span style="color:#66d9ef">int</span><span style="color:#f92672">)</span> <span style="color:#75715e">// 数组， 数组偏移量， 个数
+</span><span style="color:#75715e"></span>
+去两端空白
+String <span style="color:#a6e22e">trim</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span>
+
+为字符序列生成String唯一引用
+String <span style="color:#a6e22e">intern</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span>
+
+</code></pre></div><h2 id="heading">格式化输出</h2>
+<p>System.out.printf() 与 C的printf类似
+System.out.format() 也是如此</p>
+<h3 id="heading-1">格式化说明符</h3>
+<p>%[argument_index$][flags][width][.precision]conversion
+注：其中[.precision]不能用于整数类型，否则触发异常</p>
+<h3 id="formatter">Formatter类</h3>
+<p>使用:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Java" data-lang="Java">在某个方法内
+String name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Jack&#34;</span><span style="color:#f92672">;</span>
+<span style="color:#66d9ef">int</span> age <span style="color:#f92672">=</span> 12<span style="color:#f92672">;</span>
+Formatter f <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Formatter<span style="color:#f92672">(</span>System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+f<span style="color:#f92672">.</span><span style="color:#a6e22e">format</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;name: %s, age: %d&#34;</span><span style="color:#f92672">,</span> name<span style="color:#f92672">,</span> age<span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+</code></pre></div><p>解释: Formatter类会将format()内的参数打印到System.out</p>
+<p>String.format方法是静态方法，内部创建Formatter对象，将传入的参数，传给
+Formatter。</p>
+<h2 id="heading-2">扫描输入</h2>
+<p>使用java.io.Scanner，扫描输入， 减少分割字符串操作
+例子:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Java" data-lang="Java"><span style="color:#f92672">import</span> java.io.*<span style="color:#f92672">;</span>
+
+<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">ScanRead</span> <span style="color:#f92672">{</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> BufferedReader input <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> BufferedReader<span style="color:#f92672">(</span>
+        <span style="color:#66d9ef">new</span> StringReader<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Thingking In Java\n2019 3.14&#34;</span><span style="color:#f92672">)</span>
+    <span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span>String<span style="color:#f92672">[</span><span style="color:#f92672">]</span> args<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        Scanner in <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Scanner<span style="color:#f92672">(</span>input<span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;What book do you read?&#34;</span><span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+        String book <span style="color:#f92672">=</span> in<span style="color:#f92672">.</span><span style="color:#a6e22e">nextLine</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>book<span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;What year is it&#34;</span><span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+        <span style="color:#66d9ef">int</span> year <span style="color:#f92672">=</span> in<span style="color:#f92672">.</span><span style="color:#a6e22e">nextInt</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>year<span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;How much pi do you know?&#34;</span><span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+        <span style="color:#66d9ef">double</span> pi <span style="color:#f92672">=</span> in<span style="color:#f92672">.</span><span style="color:#a6e22e">nextDouble</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;yes , pi = &#34;</span> <span style="color:#f92672">+</span> pi<span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+
+</code></pre></div>
+</div>
+
+
+    </main>
+
+    
+  </body>
+</html>

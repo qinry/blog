@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <link href="https://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.62.0" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>容器 &middot; qinry&#39;s blog</title>
+  <meta name="description" content="" />
+
+  
+  <link type="text/css" rel="stylesheet" href="https://qinry.github.io/css/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="https://qinry.github.io/css/poole.css">
+  <link type="text/css" rel="stylesheet" href="https://qinry.github.io/css/syntax.css">
+  <link type="text/css" rel="stylesheet" href="https://qinry.github.io/css/hyde.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  
+</head>
+
+  <body class=" ">
+  <aside class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="https://qinry.github.io"><h1>qinry&#39;s blog</h1></a>
+      <p class="lead">
+       在此写下学习日志，努力充电中～ 
+      </p>
+    </div>
+
+    <nav>
+      <ul class="sidebar-nav">
+        <li><a href="https://github.com/qinry"> Github </a></li>
+      </ul>
+    </nav>
+
+    <p>&copy; 2020. All rights reserved. </p>
+  </div>
+</aside>
+
+    <main class="content container">
+    <div class="post">
+  <h1>容器</h1>
+  <time datetime=2020-05-02T21:30:16&#43;0800 class="post-date">Sat, May 2, 2020</time>
+  <h2 id="heading">留意</h2>
+<p>此文列出一些有可能常用的api，肯定没有文档列的全也没必要全面，还有旨在会用这些操作容器的方法即可，要了解更多回看《Thinking in Java》4th的持有对象和容器深入研究那两章。</p>
+<p>首先展示集合类库较为完整图,实线代表具体的类，点线代表接口，短虚线代表抽象类。粗线框代表的类是最常用：</p>
+<p><img src="https://qinry.github.io/images/containers.png" alt="picture"></p>
+<p>Interface Collection&lt; E &gt; api:</p>
+<p>List、Set、Queue都支持以下操作</p>
+<ul>
+<li>
+<p>boolean add(E e) (可选) 添加一个元素</p>
+</li>
+<li>
+<p>boolean addAll(Collection&lt;? extends E&gt; c) (可选) 添加另一个Collection所有元素</p>
+</li>
+</ul>
+<hr>
+<ul>
+<li>void clear() (可选) 清除元素</li>
+</ul>
+<hr>
+<ul>
+<li>
+<p>boolean contains(Object o) 是否包含某个元素</p>
+</li>
+<li>
+<p>boolean containsAll(Collection&lt;?&gt; c) 是否包含另一个Collection所有的元素</p>
+</li>
+</ul>
+<hr>
+<ul>
+<li>boolean isEmpty() 检查是否为空</li>
+</ul>
+<hr>
+<ul>
+<li>Iterator&lt; E &gt; iterator() 返回迭代器</li>
+</ul>
+<hr>
+<ul>
+<li>
+<p>boolean remove(Object o) (可选) 移除一个元素</p>
+</li>
+<li>
+<p>boolean removeAll(Collection&lt;?&gt; c) (可选) 移除另一个Collection包含的所有元素</p>
+</li>
+</ul>
+<hr>
+<ul>
+<li>boolean retainAll(Collection&lt;?&gt; c) (可选) 保留另一个Collection包含的所有元素，其余移除</li>
+</ul>
+<hr>
+<ul>
+<li>int size() 返回尺寸</li>
+</ul>
+<hr>
+<ul>
+<li>
+<p>Object[] toArray() 返回Object数组，包含容器的所有元素</p>
+</li>
+<li>
+<p>&lt; T &gt; T[] toArray(T[] a) 返回指定类型的数组，包含容器的所有元素</p>
+</li>
+</ul>
+<p>执行各种添加和移除都是可选操作，意味着实现类不需要为这些方法提供定义</p>
+<h2 id="list">List</h2>
+<p>在Collection基础上的 Interface List&lt; E &gt; api:</p>
+<p>ArrayList、LinkedList支持以下操作</p>
+<ul>
+<li>
+<p>void add(int index,E element) 添加单个元素</p>
+</li>
+<li>
+<p>boolean addAll(int index, Collection&lt;? extends E&gt; c) 可以添加多个元素</p>
+</li>
+</ul>
+<hr>
+<ul>
+<li>E get(int index) 获取元素</li>
+</ul>
+<hr>
+<ul>
+<li>E remove(int index) 移除元素</li>
+</ul>
+<hr>
+<ul>
+<li>
+<p>int indexOf(Object o) 指出元素的索引，从头开始查找</p>
+</li>
+<li>
+<p>int lastIndexOf(Object o) 指出元素的索引，从尾开始查找</p>
+</li>
+</ul>
+<hr>
+<ul>
+<li>
+<p>ListIterator&lt; E &gt; listIterator() 返回一种支持双向操作的迭代器</p>
+</li>
+<li>
+<p>ListIterator&lt; E &gt; listIterator(int index) 返回一种支持双向操作的迭代器，从index位置开始</p>
+</li>
+</ul>
+<hr>
+<ul>
+<li>List&lt; E &gt; subList(int fromIndex,int toIndex) 取子列表</li>
+</ul>
+<hr>
+<ul>
+<li>E set(int index, E element) 选定某个元素进行替换或设置</li>
+</ul>
+<h2 id="queue">Queue</h2>
+<p>Interface Queue&lt; E &gt; api:</p>
+<ul>
+<li>
+<p>boolean add(E e) 队尾插入元素,当空间限制插入元素抛出IllegalStateException</p>
+</li>
+<li>
+<p>boolean offer(E e) 队尾插入元素</p>
+</li>
+</ul>
+<hr>
+<ul>
+<li>
+<p>E element() 访问队头元素，队为空抛出NoSuchException</p>
+</li>
+<li>
+<p>E peek() 访问队头元素,队为空返回null</p>
+</li>
+</ul>
+<hr>
+<ul>
+<li>
+<p>E remove() 队头元素弹出，队为空抛出NoSuchException</p>
+</li>
+<li>
+<p>E poll() 队头元素弹出，队为空返回null</p>
+</li>
+</ul>
+<p>在Queue&lt; E &gt;基础上的 Interface Deque&lt; E &gt; api:</p>
+<p>LinkedList支持以下操作</p>
+<ul>
+<li>
+<p>void addFirst(E e) 当空间限制插入元素抛出IllegalStateException</p>
+</li>
+<li>
+<p>void addLast(E e) 当空间限制插入元素抛出IllegalStateException</p>
+</li>
+<li>
+<p>boolean offerFirst(E e) 空间受限返回false不抛出异常</p>
+</li>
+<li>
+<p>boolean offerLast(E e) 空间受限返回false不抛出异常</p>
+</li>
+</ul>
+<hr>
+<ul>
+<li>
+<p>E getFirst() 队为空抛出NoSuchException</p>
+</li>
+<li>
+<p>E getLast() 队为空抛出NoSuchException</p>
+</li>
+<li>
+<p>E peekFirst() 队为空返回null</p>
+</li>
+<li>
+<p>E peekLast() 队为空返回null</p>
+</li>
+</ul>
+<hr>
+<ul>
+<li>
+<p>E removeFirst() 队为空抛出NoSuchException</p>
+</li>
+<li>
+<p>E removeLast()队为空抛出NoSuchException</p>
+</li>
+<li>
+<p>E pollFirst() 队为空返回null</p>
+</li>
+<li>
+<p>E pollLast() 队为空返回null</p>
+</li>
+</ul>
+<hr>
+<ul>
+<li>void push(E e) 相当于addFirst(E)</li>
+</ul>
+<hr>
+<ul>
+<li>E pop() 相当于removeFirst()</li>
+</ul>
+<h2 id="iterator">Iterator</h2>
+<p>Interface Iterator&lt; E &gt; api:</p>
+<ul>
+<li>
+<p>boolean hasNext() 是否还有元素</p>
+</li>
+<li>
+<p>E next() 返回后一个元素</p>
+</li>
+<li>
+<p>default void remove() 删除新近返回的元素（可选操作）。每次调用next()只能调用一次此方法。如果在迭代进行过程中以其他方式（而不是通过调用此方法）修改了基础集合，则未指定迭代器的行为。</p>
+</li>
+</ul>
+<p>在Iterator的基础上，增加了向前移动，实现双向移动的功能
+Interface ListIterator&lt; E &gt; api:</p>
+<ul>
+<li>
+<p>boolean hasPrevious() 反向遍历时，是否还有前一个元素</p>
+</li>
+<li>
+<p>E previous() 返回前一个元素</p>
+</li>
+<li>
+<p>void set(E e) 设置迭代器通过next()或previouse()访问最后一个元素的值，只有在对next()或previouse()的新近一次调用之后没有调用List的remove()和add(E)时，才能进行此调用。</p>
+</li>
+<li>
+<p>int nextIndex() 返回当前位置后一个元素的索引</p>
+</li>
+<li>
+<p>int previousIndex() 返回当前位置前一个元素的索引</p>
+</li>
+<li>
+<p>void remove() 删除新近返回的元素</p>
+</li>
+</ul>
+<h2 id="set">Set</h2>
+<p>Interface Set&lt; E &gt; api 与 Collection&lt; E &gt;一致</p>
+<p>在Collection&lt; E &gt;基础上，SortedSet&lt; E &gt; api:</p>
+<p>TreeSet支持以下操作</p>
+<ul>
+<li>
+<p>Comparator&lt;? super E&gt; comparator() 返回比较器，如果是自然排序则返回null</p>
+</li>
+<li>
+<p>E first() 最前的元素</p>
+</li>
+<li>
+<p>SortedSet&lt; E &gt; headSet(E toElement) toElement之前元素构成的SortedSet，不包括toElement</p>
+</li>
+<li>
+<p>E	last() 最后的元素</p>
+</li>
+<li>
+<p>SortedSet&lt; E &gt; subSet(E fromElement,E toElement) fromElement到toElement构成的SortedSet</p>
+</li>
+<li>
+<p>SortedSet&lt; E &gt; tailSet(E fromElement) fromElement之后元素构成的SortedSet</p>
+</li>
+</ul>
+<h2 id="map">Map</h2>
+<p>Map&lt; K, V &gt; api:</p>
+<p>HashMap、LinkedHashMap、IdentityHashMap、WeakHashMap支持以下操作</p>
+<p>清空</p>
+<ul>
+<li>void clear()</li>
+</ul>
+<hr>
+<p>检查是否为空</p>
+<ul>
+<li>boolean isEmpty()</li>
+</ul>
+<hr>
+<p>查找键或值</p>
+<ul>
+<li>
+<p>boolean containsKey(Object key)</p>
+</li>
+<li>
+<p>boolean containsValue(Object value)</p>
+</li>
+</ul>
+<hr>
+<p>产生条目集合或键集合</p>
+<ul>
+<li>
+<p>Set&lt; Map.Entry&lt; K,V &gt; &gt; entrySet()</p>
+</li>
+<li>
+<p>Set&lt; K &gt; keySet()</p>
+</li>
+</ul>
+<hr>
+<p>添加条目</p>
+<ul>
+<li>
+<p>V put(K key,V value)</p>
+</li>
+<li>
+<p>void putAll(Map&lt;? extends K,? extends V&gt; m)</p>
+</li>
+</ul>
+<hr>
+<p>获取键对应的值</p>
+<ul>
+<li>V get(Object key)</li>
+</ul>
+<hr>
+<p>移除一个键值对</p>
+<ul>
+<li>V remove(Object key)</li>
+</ul>
+<hr>
+<ul>
+<li>default V replace(K key, V value</li>
+</ul>
+<hr>
+<p>访问Map尺寸</p>
+<ul>
+<li>int size()</li>
+</ul>
+<hr>
+<p>值构成的集合</p>
+<ul>
+<li>Collection&lt; V &gt; values()</li>
+</ul>
+<p>Map.Entry&lt; K, V &gt; api:</p>
+<ul>
+<li>
+<p>K getKey()</p>
+</li>
+<li>
+<p>V getValue()</p>
+</li>
+</ul>
+<p>在Map基础上，SortedMap&lt; K, V &gt; api:</p>
+<p>TreeMap支持以下操作</p>
+<ul>
+<li>
+<p>Comparator&lt;? super K&gt; comparator()</p>
+</li>
+<li>
+<p>K firstKey()</p>
+</li>
+<li>
+<p>SortedMap&lt; K,V &gt; headMap(K toKey)</p>
+</li>
+<li>
+<p>K lastKey()</p>
+</li>
+<li>
+<p>SortedMap&lt; K,V &gt; subMap(K fromKey, K toKey)</p>
+</li>
+<li>
+<p>SortedMap&lt; K,V &gt; tailMap(K fromKey)</p>
+</li>
+</ul>
+<h2 id="hashcodeequals">hashCode()和equals()</h2>
+<p>如果使用自己定义的类作为HashMap的键，要覆写hashCode()的同时一定要覆写equals()，正确的equals()满足5个条件:</p>
+<ol>
+<li>
+<p>自反性。 对任意x，x.equals(x)一定返回true</p>
+</li>
+<li>
+<p>对称性。对任意x和y，如果y.equals(x)返回true，则x.equals(y)也返回true</p>
+</li>
+<li>
+<p>传递性。对任意下x、y、z，如果有x.equals(y)和y.equals(z)返回true，那么x.equals(z)也返回true</p>
+</li>
+<li>
+<p>一致性。对任意x和y，如果对象中用于等价比较信息没有改变，无论调用几次x.equals(y)保持一致的true</p>
+</li>
+<li>
+<p>非空性。x.equals(null)一定返回false。</p>
+</li>
+</ol>
+<p>覆写hashCode()的基本指导:</p>
+<ol>
+<li>
+<p>首先给出int变量result赋予某个非零值，如17</p>
+</li>
+<li>
+<p>为对象内的每个有意义的域计算int散列吗c:</p>
+</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th align="center">域类型</th>
+<th align="center">计算</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">boolean</td>
+<td align="center"><code>c = (f ? 0 : 1)</code></td>
+</tr>
+<tr>
+<td align="center">byte、char、short或int</td>
+<td align="center"><code>c = (int)f</code></td>
+</tr>
+<tr>
+<td align="center">long</td>
+<td align="center"><code>c = (int)(f ^ f &gt;&gt;&gt; 32)</code></td>
+</tr>
+<tr>
+<td align="center">float</td>
+<td align="center"><code>c = Float.floatToIntBits(f);</code></td>
+</tr>
+<tr>
+<td align="center">double</td>
+<td align="center"><code>long l = Double.doubleToLongBits(f);c = (int)(l ^ l &gt;&gt;&gt; 32)</code></td>
+</tr>
+<tr>
+<td align="center">Object、其equals调用这个域的equals()</td>
+<td align="center"><code>c = f.hashCode()</code></td>
+</tr>
+<tr>
+<td align="center">数组</td>
+<td align="center">每个元素应用上述规则</td>
+</tr>
+</tbody>
+</table>
+<ol start="3">
+<li>
+<p>合并运算得到散列码：<code>result = 37 * result + c</code></p>
+</li>
+<li>
+<p>返回result。</p>
+</li>
+<li>
+<p>检查hashCode()最后生成结果，确保相同对象有相同的散列。</p>
+</li>
+</ol>
+<h2 id="collections">实用工具类Collections</h2>
+<p>Class Collections api:</p>
+<p>往集合添加元素</p>
+<ul>
+<li>public static &lt; T &gt; boolean addAll(Collection&lt;? super T&gt; c, T&hellip; elements)</li>
+</ul>
+<hr>
+<p>列表的二分查找</p>
+<ul>
+<li>
+<p>public static &lt; T &gt; int binarySearch(List&lt;? extends Comparable&lt;? super T&raquo; list,T key)</p>
+</li>
+<li>
+<p>public static &lt; T &gt; int binarySearch(List&lt;? extends T&gt; list, T key,Comparator&lt;? super T&gt; c)</p>
+</li>
+</ul>
+<hr>
+<p>产生动态类型检查的集合，防止加入不正确的类型，在编译期就能发现错误</p>
+<ul>
+<li>
+<p>public static &lt; E &gt; Collection&lt; E &gt; checkedCollection(Collection&lt; E &gt; c,Class&lt; E &gt; type)</p>
+</li>
+<li>
+<p>public static &lt; E &gt; List&lt; E &gt; checkedList(List&lt; E &gt; list,Class&lt; E &gt; type)</p>
+</li>
+<li>
+<p>public static &lt; K,V &gt; Map&lt; K,V &gt; checkedMap(Map&lt; K,V &gt; m,Class&lt; K &gt; keyType,Class&lt; V &gt; valueType)</p>
+</li>
+<li>
+<p>public static &lt; E &gt; Set&lt; E &gt; checkedSet(Set&lt; E &gt; s,Class&lt; E &gt; type)</p>
+</li>
+<li>
+<p>public static &lt; K,V &gt; SortedMap&lt; K,V &gt; checkedSortedMap(SortedMap&lt; K,V &gt; m,Class&lt; K &gt; keyType,Class&lt; V &gt; valueType)</p>
+</li>
+<li>
+<p>public static &lt; E &gt; SortedSet&lt; E &gt; checkedSortedSet(SortedSet&lt; E &gt; s,Class&lt; E &gt; type)</p>
+</li>
+</ul>
+<hr>
+<p>最大值、最小值</p>
+<ul>
+<li>
+<p>public static &lt; T extends Object &amp; Comparable&lt;? super T&gt; &gt; T max(Collection&lt;? extends T&gt; coll)</p>
+</li>
+<li>
+<p>public static &lt; T extends Object &amp; Comparable&lt;? super T&gt; &gt; T min(Collection&lt;? extends T&gt; coll)</p>
+</li>
+</ul>
+<hr>
+<p>最大值、最小值</p>
+<ul>
+<li>
+<p>public static &lt; T &gt; T max(Collection&lt;? extends T&gt; coll,Comparator&lt;? super T&gt; comp)</p>
+</li>
+<li>
+<p>public static &lt; T &gt; T min(Collection&lt;? extends T&gt; coll,Comparator&lt;? super T&gt; comp)</p>
+</li>
+</ul>
+<hr>
+<p>子列表在源列表的位置</p>
+<ul>
+<li>
+<p>public static int indexOfSubList(List<!-- raw HTML omitted --> target)</p>
+</li>
+<li>
+<p>public static int lastIndexOfSubList(List<!-- raw HTML omitted --> target)</p>
+</li>
+</ul>
+<hr>
+<p>所有旧值更换为新值</p>
+<ul>
+<li>public static &lt; T &gt; boolean replaceAll(List&lt; T &gt; list,T oldVal,T newVal)</li>
+</ul>
+<hr>
+<p>列表反向排序</p>
+<ul>
+<li>public static void reverse(List&lt;?&gt; list)</li>
+</ul>
+<hr>
+<p>列表反向排序的元素比较器</p>
+<ul>
+<li>
+<p>public static &lt; T &gt; Comparator&lt; T &gt; reverseOrder()</p>
+</li>
+<li>
+<p>public static &lt; T &gt; Comparator&lt; T &gt; reverseOrder(Comparator&lt; T &gt; cmp)</p>
+</li>
+</ul>
+<hr>
+<p>元素位置平动</p>
+<ul>
+<li>public static void rotate(List&lt;?&gt; list,int distance)</li>
+</ul>
+<hr>
+<p>随机排序</p>
+<ul>
+<li>
+<p>public static void shuffle(List&lt;?&gt; list)</p>
+</li>
+<li>
+<p>public static void shuffle(List&lt;?&gt; list,Random rnd)</p>
+</li>
+</ul>
+<hr>
+<p>排序</p>
+<ul>
+<li>
+<p>public static &lt; T extends Comparable&lt;? super T&gt; &gt; void sort(List&lt; T &gt; list)</p>
+</li>
+<li>
+<p>public static &lt; T &gt; void sort(List&lt; T &gt; list, Comparator&lt;? super T&gt; c)</p>
+</li>
+</ul>
+<hr>
+<p>拷贝</p>
+<ul>
+<li>public static &lt; T &gt; void copy(List&lt;? super T&gt; dest, List&lt;? extends T&gt; 
+src)</li>
+</ul>
+<hr>
+<p>元素交换位置</p>
+<ul>
+<li>public static void swap(List&lt;?&gt; list,int i,int j)</li>
+</ul>
+<hr>
+<p>填充</p>
+<ul>
+<li>public static &lt; T &gt; void fill(List&lt;? super T&gt; list,T obj)</li>
+</ul>
+<hr>
+<p>拷贝n次对象o生成大小为n的List</p>
+<ul>
+<li>public static &lt; T &gt; List&lt; T &gt; nCopies(int n,T o)</li>
+</ul>
+<hr>
+<p>检查集合之间是否有共同的元素，有返回false，无返回true</p>
+<ul>
+<li>public static boolean disjoint(Collection<!-- raw HTML omitted --> c2)</li>
+</ul>
+<hr>
+<p>查看相同元素的个数</p>
+<ul>
+<li>public static int frequency(Collection&lt;?&gt; c,Object o)</li>
+</ul>
+<hr>
+<p>空集合</p>
+<ul>
+<li>
+<p>public static final &lt; T &gt; List&lt; T &gt; emptyList()</p>
+</li>
+<li>
+<p>public static final &lt; K,V &gt; Map&lt; K,V &gt; emptyMap()</p>
+</li>
+<li>
+<p>public static final &lt; T &gt; Set&lt; T &gt; emptySet()</p>
+</li>
+</ul>
+<hr>
+<p>单项集合</p>
+<ul>
+<li>
+<p>public static &lt; T &gt; Set&lt; T &gt; singleton(T o)</p>
+</li>
+<li>
+<p>public static &lt; T &gt; List&lt; T &gt; singletonList(T o)</p>
+</li>
+<li>
+<p>public static &lt; K,V &gt; Map&lt; K,V &gt; singletonMap(K key,V value)</p>
+</li>
+</ul>
+<hr>
+<p>线程安全的集合</p>
+<ul>
+<li>
+<p>public static &lt; T &gt; Collection&lt; T &gt; synchronizedCollection(Collection&lt; T &gt; c)</p>
+</li>
+<li>
+<p>public static &lt; K,V &gt; Map&lt; K,V &gt; synchronizedMap(Map&lt; K,V &gt; m)</p>
+</li>
+</ul>
+<hr>
+<p>不可修改的集合</p>
+<ul>
+<li>
+<p>public static &lt; T &gt; Collection&lt; T &gt; unmodifiableCollection(Collection&lt;? extends T&gt; c)</p>
+</li>
+<li>
+<p>public static &lt; K,V &gt; Map&lt; K,V &gt; unmodifiableMap(Map&lt;? extends K,? extends V&gt; m)</p>
+</li>
+</ul>
+<hr>
+<ul>
+<li>public static &lt; T &gt; ArrayList&lt; T &gt; list(Enumeration&lt; T &gt; e)</li>
+</ul>
+<hr>
+<ul>
+<li>public static &lt; T &gt; Enumeration&lt; T &gt; enumeration(Collection&lt; T &gt; c)</li>
+</ul>
+<h2 id="heading-1">旧式不建议使用的容器</h2>
+<p>Hashtable&lt; K, V &gt;用法与HashMap&lt; K, V&gt;相似</p>
+<h3 id="vectorenumeration">Vector和Enumeration</h3>
+<p>Class Vector&lt; E &gt; api:</p>
+<p>构造器</p>
+<ul>
+<li>
+<p>Vector(int initialCapacity)</p>
+</li>
+<li>
+<p>Vector(int initialCapacity, int capacityIncrement)</p>
+</li>
+</ul>
+<hr>
+<ul>
+<li>
+<p>void addElement(E obj) 添加元素</p>
+</li>
+<li>
+<p>int capacity() 查看容量</p>
+</li>
+<li>
+<p>void copyInto(Object[] anArray) 拷贝所有元素到数组</p>
+</li>
+<li>
+<p>E elementAt(int index) 索引位置index的值</p>
+</li>
+<li>
+<p>Enumeration&lt; E &gt; elements() 返回Enumeration对象</p>
+</li>
+</ul>
+<p>Class Enumeration&lt; E &gt; api:</p>
+<ul>
+<li>
+<p>boolean hasMoreElements() 查看是否还有元素可遍历</p>
+</li>
+<li>
+<p>E nextElement() 返回下个元素</p>
+</li>
+</ul>
+<h3 id="stack">Stack</h3>
+<p>Class Stack&lt; E &gt; api:</p>
+<ul>
+<li>
+<p>public Stack()</p>
+</li>
+<li>
+<p>public E push(E item) 压栈</p>
+</li>
+<li>
+<p>public E pop() 退栈</p>
+</li>
+<li>
+<p>public E peek() 查看栈头</p>
+</li>
+<li>
+<p>public boolean empty() 是否为空</p>
+</li>
+<li>
+<p>public int search(Object o)</p>
+</li>
+</ul>
+<h3 id="bitset">BitSet</h3>
+<p>记录大量的“开/关”信息的良好选择是BitSet，不过EnumSet在能拥有可命名的固定的标志集合比BitSet更有优势。BitSet是64位的。</p>
+<ul>
+<li>
+<p>BitSet()</p>
+</li>
+<li>
+<p>BitSet(int nbits)</p>
+</li>
+<li>
+<p>boolean get(int bitIndex) 查看某个位置的开关信息</p>
+</li>
+<li>
+<p>void clear(int bitIndex) 某个位置清空标志</p>
+</li>
+<li>
+<p>void set(int bitIndex) 某个位置设置标志</p>
+</li>
+</ul>
+
+</div>
+
+
+    </main>
+
+    
+  </body>
+</html>

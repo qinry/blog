@@ -1,0 +1,404 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>qinry&#39;s blog</title>
+    <link>https://qinry.github.io/</link>
+    <description>Recent content on qinry&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Tue, 12 May 2020 22:06:42 +0800</lastBuildDate>
+    
+	<atom:link href="https://qinry.github.io/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>注解</title>
+      <link>https://qinry.github.io/posts/2020-05-12-java-annotation/</link>
+      <pubDate>Tue, 12 May 2020 22:06:42 +0800</pubDate>
+      
+      <guid>https://qinry.github.io/posts/2020-05-12-java-annotation/</guid>
+      <description>定义注解 import java.lang.annotation.*;@Target(ElementType.METHOND)@Retention(RetentPolicy.RUNTIME)public @interface UseCase {int id();String description() default &amp;#34;no description&amp;#34;;}使用注解 import java.util.*;public class PasswordUtils {@UseCase(id = 47, description =&amp;#34;Passwords must contain at least one numeric&amp;#34;)public boolean validatePassword(String passwd) {return (passwd.matches(&amp;#34;\\w*\\d\\w*&amp;#34;));}@UseCase(id = 48)public String encryptPassword(String passwd) {return new StringBuilder(passwd).reverse().toString();}@UseCase(id = 49, description =&amp;#34;New passwords can&amp;#39;t equal previously used ones&amp;#34;)public boolean checkForNewPassword(List&amp;lt;String&amp;gt; prevPasswords, String passwd) {return !</description>
+    </item>
+    
+    <item>
+      <title>背包、栈、队列实现</title>
+      <link>https://qinry.github.io/posts/2020-05-06-algorithm-basic-datastructure/</link>
+      <pubDate>Wed, 06 May 2020 08:24:50 +0800</pubDate>
+      
+      <guid>https://qinry.github.io/posts/2020-05-06-algorithm-basic-datastructure/</guid>
+      <description>API:
+背包
+public class Bag&amp;lt;Item&amp;gt; implements Iterable&amp;lt;Item&amp;gt;
+   方法 功能描述     Bag() 创建一个空包   void add(Item item) 添加一个元素   boolean isEmpty() 背包是否为空   int size() 背包中的元素数量     先进先出队列(FIFO)
+public class Queue&amp;lt;Item&amp;gt; implements Iterable&amp;lt;Item&amp;gt;
+   方法 功能描述     Queue() 创建一个空队列   void enqueue(Item item) 添加一个元素   Item dequeue() 删除最早添加的元素   boolean isEmpty() 队列是否为空   int size() 队列中的元素数量     下压栈(LIFO)</description>
+    </item>
+    
+    <item>
+      <title>泛型</title>
+      <link>https://qinry.github.io/posts/2020-05-04-java-generics/</link>
+      <pubDate>Sun, 03 May 2020 23:29:33 +0800</pubDate>
+      
+      <guid>https://qinry.github.io/posts/2020-05-04-java-generics/</guid>
+      <description>有些一些方法处理不同类型，这些方法之间只有操作的类型的不同，方法名相同，方法的行为相似甚至相同，那么可以使用参数化类型，也叫泛型，用一个方法就能处理不同类型，大大地减少了代码的重复，提高它的重用性。泛型能使问题的解决对类型能更加宽泛，即使是未来创建的类型，此方法依然运行。
+泛型类如何表示类名后跟上尖括号，括号里面就是类型参数。
+简单定义泛型：
+class Generic&amp;lt;T&amp;gt; {public T a;public void set(T b) { a = b; }public T get() { return a; }public void print() { System.out.println(a); }public static void main(String[] args) {Generic&amp;lt;String&amp;gt; gs = new Generic&amp;lt;String&amp;gt;();gs.set(&amp;#34;String&amp;#34;);gs.print();Generic&amp;lt;Integer&amp;gt; gi = new Generic&amp;lt;Integer&amp;gt;();gs.set(17);gs.set(new Integer(47));gs.print();}}基本类型不能赋予泛型，所以基本类型对应的包装类来赋予解决基本数据类型的问题
+泛型方法和泛型接口 有时需要定义类的某些方法需要类型参数，而类不使用类型参数：
+class GenericMethod {public &amp;lt;T&amp;gt; void f(T t) {System.out.println(t.getClass().getName());}}在方法的返回类型前声明参数化类型，加括号里面有类型参数。由于static方法无法访问泛型类的类型参数，也要像泛型方法的定义获得泛型能力。</description>
+    </item>
+    
+    <item>
+      <title>容器</title>
+      <link>https://qinry.github.io/posts/2020-05-02-java-containers/</link>
+      <pubDate>Sat, 02 May 2020 21:30:16 +0800</pubDate>
+      
+      <guid>https://qinry.github.io/posts/2020-05-02-java-containers/</guid>
+      <description>留意 此文列出一些有可能常用的api，肯定没有文档列的全也没必要全面，还有旨在会用这些操作容器的方法即可，要了解更多回看《Thinking in Java》4th的持有对象和容器深入研究那两章。
+首先展示集合类库较为完整图,实线代表具体的类，点线代表接口，短虚线代表抽象类。粗线框代表的类是最常用：
+Interface Collection&amp;lt; E &amp;gt; api:
+List、Set、Queue都支持以下操作
+  boolean add(E e) (可选) 添加一个元素
+  boolean addAll(Collection&amp;lt;? extends E&amp;gt; c) (可选) 添加另一个Collection所有元素
+    void clear() (可选) 清除元素     boolean contains(Object o) 是否包含某个元素
+  boolean containsAll(Collection&amp;lt;?&amp;gt; c) 是否包含另一个Collection所有的元素
+    boolean isEmpty() 检查是否为空    Iterator&amp;lt; E &amp;gt; iterator() 返回迭代器     boolean remove(Object o) (可选) 移除一个元素</description>
+    </item>
+    
+    <item>
+      <title>数组</title>
+      <link>https://qinry.github.io/posts/2020-05-02-java-arrays/</link>
+      <pubDate>Sat, 02 May 2020 21:27:15 +0800</pubDate>
+      
+      <guid>https://qinry.github.io/posts/2020-05-02-java-arrays/</guid>
+      <description>数组的优势，在于它存储和执行的效率，支持随机访问元素。不过，数组对象使用前它的大小是固定，不可改变。这意味着创建固定大小的数组，以后要扩大其容量是不可能的，在多数情况下ArrayList是更有的选择，在效率和弹性开销的需求方面更令人满意，除非考虑非常高的性能问题，一般减少使用。数组随机访问有可能越界访问，越界会抛出RuntimeException。数组的创建是持有具体类型，不会将持有的对象当作Object看待，通过编译期检查防止插入错误的类型和抽取不当类型。
+数组的标识符其实只是引用，所谓的安全指针，指向在堆中创建的一个真实对象，这个数组对象用于保存指向其他对象的引用，它有唯一的域length表示数组的大小，通过&amp;rdquo;[]&amp;ldquo;来随机访问数组的元素。
+一维数组和多维数组 数组类型的声明：
+int[] direct; // 一维数组int[][] flat ; // 二维数组int[][][] body; // 三维数组... 以此类推其他多维数组一维数组的打印版，Arrays.toString(数组对象)；二维数组的打印版，Arrays.deepToString(数组对象)。
+数组和泛型 不能实例化具有参数化类型的数组:
+Peel&amp;lt;Banana&amp;gt;[] peels = new Peel&amp;lt;Banana&amp;gt;[10]; // illegal
+擦除会移除参数类型信息，而数组必须知道它们所持有的确切类型，以强制保证类型安全。
+可以通过创建非泛型数组转型为泛型数组, 如: List&amp;lt; String &amp;gt;[] ls = (List&amp;lt; String &amp;gt;[])new List[10];，这说明允许声明泛型数组的引用，不支持它的实例化，这里要所在方法定义的开头标注注解 @SuppressingWarnings(&amp;quot;unchecked&amp;quot;) 压制警告信息。
+数组是协变类型，List&amp;lt; String &amp;gt; [ ] 也是Object[ ] ，故可以Object[] objects = ls，泛型数组可以向上转型为Object[ ]，不建议向上转型，因为如果类型转换有误不会在编译期抛出错误，在运行时类型检查才抛出错误，类型是不安全，泛型数组对Object[ ]来说是类型安全，毕竟持有具体泛型。
+现实是泛型容器是比泛型数组更优的选择，泛型会进行编译期检查防止不合理的类型的加入和抽取来保证类型安全，不需要创建时非泛型容器转型为泛型容器。
+Arrays实用功能 以下参数中的数组一词指 注：数组指基本数据类型数组或Object的数组
+ public static List&amp;lt; T &amp;gt; asList(T[] a) 将数组转变为List，但底层依旧是数组，不能增加或移除元素  填充   public static void fill(数组 a, 数组 val) 只能用一个值进行填充，如果是对象其实是复制同一个对象填充</description>
+    </item>
+    
+    <item>
+      <title>新I/O</title>
+      <link>https://qinry.github.io/posts/2020-04-28-java-newio/</link>
+      <pubDate>Tue, 28 Apr 2020 20:16:54 +0800</pubDate>
+      
+      <guid>https://qinry.github.io/posts/2020-04-28-java-newio/</guid>
+      <description>通道是数据存储的地方，缓冲器充当着通道与外部数据交换的媒介
+通道Channel FileChannel可以通过FileOutputStream、FileInputStream、RandomAccessFile三个类的getChannel()获得，这些都是字节操纵流。在通道上有读写，访问通道大小,关闭通道，更改所在位置等操作。
+FileChannel api:
+  public int read(ByteBuffer dst) throws IOException 通道读给缓冲器
+  public int write(ByteBuffer src) throws IOException 缓冲器数据写进通道
+  public long size() 通道上文件当前大小
+  public long position() throws IOException 通道的文件位置
+  public void close() throws IOException 关闭通道
+  缓冲器Buffer 最基本的缓冲器ByteBuffer，可以从某个特定的基本数据类型的视窗查看底层的ByteBuffer。视窗缓冲器有CharBuffer、DoubleBuffer、IntBuffer等等，通过 as数据类型Buffer() 转换相应数据类型视图的Buffer
+Buffer有四个索引：mark(标记)、position(位置)、limit(界限)、capacity(容量)
+不同数据类型的Buffer api:
+读写操作前的准备
+  public final Buffer clear() 清理缓冲器，等待从通道读到数据
+  public final Buffer flip() 将limit设置position值，position设置为0,mark丢弃，等待写数据到通道
+   关于Buffer索引的操作</description>
+    </item>
+    
+    <item>
+      <title>文件路径与I/O流</title>
+      <link>https://qinry.github.io/posts/2020-04-28-java-file-iostream/</link>
+      <pubDate>Tue, 28 Apr 2020 17:42:29 +0800</pubDate>
+      
+      <guid>https://qinry.github.io/posts/2020-04-28-java-file-iostream/</guid>
+      <description>File类 File类作用和它的名字不太相符，File除了可以代表一个特定的文件，还可以表示一个目录（包含一组文件），最准确认为是“路径”。还一个与之相关的接口FilenameFilter，用来筛选路径的目录或文件。它们在java.io包中。
+用例：
+import java.util.regex.*;import java.util.*;import java.io.*;public class DirList {public static void main(String[] args) {File path = new File(&amp;#34;.&amp;#34;); // .表示当前工作路径 String[] list;if(args.length == 0)list = path.list();elselist = path.list(new DirFilter(args[0]));Arrays.sort(list, String.CASE_INSENSITIVE_ORDER);for(String dirItem : list)System.out.println(dirItem)}}class DirFilter implements FilenameFilter {private Pattern pattern;public DirFilter(String regex) {pattern = Pattern.compile(regex);}public boolean accept(File dir, String name) {return pattern.</description>
+    </item>
+    
+    <item>
+      <title>对象序列化</title>
+      <link>https://qinry.github.io/posts/2020-04-28-java-serialize/</link>
+      <pubDate>Tue, 28 Apr 2020 16:01:24 +0800</pubDate>
+      
+      <guid>https://qinry.github.io/posts/2020-04-28-java-serialize/</guid>
+      <description>持久性 如果对象能够在程序不运行还能保存其状态信息。可以通过将信息写入文件或数据库来达到程序下次执行时，对象重建后与上次拥有一致的信息。在Java中一切都是对象的思想下，把对象声明为“持久性”，可以省去一些细节，对程序员是种方便。对象的序列化，可以理解为把对象导入到文件中，通过Serialize接口实现。通过导入文件能够反序列化还原对象，达到持久性的目的。该特性支持计算机的远程方法调用，还有帮助Java Bean在设计阶段保存配置信息，并在启动程序后恢复配置信息。如果要把一个对象序列化，实现Serialize接口就可以了，此接口只是标记接口，不含方法。
+序列化写入文件 //: io/StoreCADState.java// Saving the state of a pretend CAD system.import java.io.*;import java.util.*;abstract class Shape implements Serializable {public static final int RED = 1, BLUE = 2, GREEN = 3;private int xPos, yPos, dimension;private static Random rand = new Random(47);private static int counter = 0;public abstract void setColor(int newColor);public abstract int getColor();public Shape(int xVal, int yVal, int dim) {xPos = xVal;yPos = yVal;dimension = dim;}public String toString() {return getClass() +&amp;#34;color[&amp;#34; + getColor() + &amp;#34;] xPos[&amp;#34; + xPos +&amp;#34;] yPos[&amp;#34; + yPos + &amp;#34;] dim[&amp;#34; + dimension + &amp;#34;]\n&amp;#34;;}public static Shape randomFactory() {int xVal = rand.</description>
+    </item>
+    
+    <item>
+      <title>压缩类</title>
+      <link>https://qinry.github.io/posts/2020-04-28-java-zip/</link>
+      <pubDate>Tue, 28 Apr 2020 14:50:00 +0800</pubDate>
+      
+      <guid>https://qinry.github.io/posts/2020-04-28-java-zip/</guid>
+      <description>Java I/O库提供压缩功能输入、输出流，这些类是按字节方式处理，常用的压缩类有DeflaterOutputStream和它的子类ZipOutputStream、GZIPOutputStream、CheckedOutputStream，这些是用于压缩的，相应地，有解压的的InflaterInputStream和它的子类ZipInputStrea、GZIPInputStream、CheckedInputStream。
+对单个数据流进行压缩 GZIP接口简单，一般用于单个数据流的压缩,用例如下:
+import java.util.zip.*; // 导入压缩格式的数据流类import java.io.*;public class GZIPcompress {public static void main(String[] args)throws IOException {if(args.length == 0) {System.out.println(&amp;#34;Usage: \nGZIPcompress file\n&amp;#34; +&amp;#34;\tUses GZIP compression to compress &amp;#34; +&amp;#34;the file to test.gz&amp;#34;);System.exit(1);}// 读取要压缩的文件数据 BufferedReader in = new BufferedReader(new FileReader(args[0]));// 创建压缩文件 BufferedOutputStream out = new BufferedOutputStream(new GZIPOutputStream(new FileOutputStream(&amp;#34;test.gz&amp;#34;)));System.out.println(&amp;#34;Writing file&amp;#34;);int c;while((c = in.</description>
+    </item>
+    
+    <item>
+      <title>简简单单知道递归</title>
+      <link>https://qinry.github.io/posts/2020-04-27-algorithm-recursion/</link>
+      <pubDate>Mon, 27 Apr 2020 20:21:23 +0800</pubDate>
+      
+      <guid>https://qinry.github.io/posts/2020-04-27-algorithm-recursion/</guid>
+      <description>递归的含义 递归就是函数或方法通过调用自己本身来达到解决问题的目的，这种解法形式叫递归。用欧几里得算法的Java描述说明问题：
+任意一对非负整数p，q(p &amp;gt; q),设r是p与q相除的余数。p，q的最大公约数等于q，p的最大公约数。
+public static int gcd(int p, int q) {if(q == 0) return p;int r = p % q;return gcd(q, r);}为什么使用递归   面对某些复杂的问题使用递归可以很好的描述并有效解决，例如汉诺塔问题、二叉树的遍历、查询目录等等。
+  递归使算法实现的代码更加简洁，而且易懂。
+  误区——迭代一定比递归的效率高 当递归使用的是尾递归本质其是就是迭代，效率不亚于普通迭代(不考虑函数的开销，递归比迭代更好)。如果使用使用双递归、三递归等等，才会算法极度低效，这是用之不当所致
+如何使用递归 使用数学归纳法诠释重要三点：
+  递归总有一个最简单的情况——方法的第一句总是包含return的条件语句
+  递归调用总是尝试解决一个规模更小的子问题，递归才能收敛到最简单的情况。
+  递归调用的父问题和尝试解决的子问题之间不应该有交集。
+  一些递归的例子 阶乘 public static int fact(int N) {if(N == 0) return 1;return N * fact(N - 1);}典型的尾递归，效率最高的递归形式</description>
+    </item>
+    
+    <item>
+      <title>类型信息</title>
+      <link>https://qinry.github.io/posts/2019-11-28-java-typeinfo/</link>
+      <pubDate>Thu, 28 Nov 2019 18:25:37 +0800</pubDate>
+      
+      <guid>https://qinry.github.io/posts/2019-11-28-java-typeinfo/</guid>
+      <description>Class对象 每个类都存在包含类型信息的Class对象，Class对象属于Java类中Class类型。有两种方法获得某类型的Class 对象，一种是使用Class.forName()静态方法，接受包含完整类名的字符串参数，创建对应类型的Class对象;第二种类字面量，&amp;lt;ClassName&amp;gt;.class。forName()方法必须放在try语句块，而类字面量不需要，故效率更高。
+例子：
+class Rock {static { System.out.println(&amp;#34;Hi, I&amp;#39;m a Rock!&amp;#34;); } public String toString() {return &amp;#34;I don&amp;#39;t like water&amp;#34;;}}public class PlayRock {static void play(Rock rc) {System.out.println(rc);}public static void main(String[] args) {try {Class&amp;lt;?&amp;gt; type = Class.forName(&amp;#34;Rock&amp;#34;); // ?是通配符表示任何事物 } catch(ClassNotFoundException e) {System.out.println(&amp;#34;No find Rock&amp;#34;);}Rock rc = null;try {rc = (Rock)type.newInstance(); // 实例化得到却是Object引用，所以要强制类型转换 play(rc);} catch(InstantiationException e) {System.</description>
+    </item>
+    
+    <item>
+      <title>字符串</title>
+      <link>https://qinry.github.io/posts/2019-11-25-java-strings/</link>
+      <pubDate>Mon, 25 Nov 2019 09:46:16 +0800</pubDate>
+      
+      <guid>https://qinry.github.io/posts/2019-11-25-java-strings/</guid>
+      <description>String对象不可变 String对象被创建后不可修改，某些方法看似是修改源字符串，其实是重新创建新字符串来代替。
+StringBuilder 在循环体中对String对象反复使用 &amp;ldquo;+=&amp;rdquo;, &amp;ldquo;+&amp;rdquo; 运算符，以达字符串的拼接,其实效率不高。因为&amp;quot;+&amp;rdquo;,&amp;ldquo;+=&amp;quot;工作实际上虚拟机会自动创建StringBuilder来起到拼接效果，每次循环建立一个StringBuilder,这将导致资源的浪费。可以在循环体外创建一个StringBuilder，每次调用append()方法拼接字符串，最后toString()返回字符串。如下:
+import java.util.*;public class Mango {public static void main(String[] args) {Random rand = new Random(47);StringBuilder result = new StringBuilder(&amp;#34;[&amp;#34;);for (int i = 0; i &amp;lt; 10; i++) {result.append(rand.nextInt(100));result.appen(&amp;#34;, &amp;#34;);}result.delete(result.length() - 2, result.length());result.append(&amp;#34;]&amp;#34;);String s = result.toString();System.out.println(s);}}String的常用方法 以下方法改变内容返回的String都是新的String, 没有改变内容返回的String都是原始字符串的引用
+构造器String(String)String(StringBuilder)String(StringBuffer)String(char[])String(byte[])长度int length()索引char charAt(int)复制char[] getChars(int, int, char[], int) // 参数:起始和终止索引, 数组，数组的起始索引byte[] getBytes(int, int, byte[], int)生成Char数组char[] toCharArray()匹配比较boolean equals(String) // 内容上的比较是否相等boolean equalsIgnoreCase(String) // 忽略大小写比较内容是否相等int compareTo(String) // 大小写不等价区域比较boolean regionMatches(int, String, int, int) // 参数:索引，模式字符串，串的偏移量， 比较长度开头比较boolean startsWith(String)boolean startsWith(String, int) // 参数: 模式字符串，串的偏移量末尾比较boolean endsWith(String)boolean endsWith(String, int)包含boolean contains(CharSequence)取索引// 从头到尾搜索 失败返回 -1int indexOf(String)int indexOf(char)int indexOf(char, int) // 参数: 字符, 起始索引int indexOf(String, int) // 参数: 字符串， 起始索引// 从尾向前搜索 失败返归 -1int lastIndexOf(String)int lastIndexOf(char)int lastIndexOf(char, int)int lastIndexOf(String, int)子字符串String subString(int) // 参数:起始索引String subString(int, int) // 参数: 起始和终止索引拼接String concat(String)替换String replace(char, char)String replace(CharSequence, CharSequence)大小写转换String toLowerCase()String toUpperCase()转变为字符串static String valueOf(Object|char|boolean|int|long|float|double)static String valueOf(char[])static String valueOf(char[], int, int) // 数组， 数组偏移量， 个数去两端空白String trim()为字符序列生成String唯一引用String intern()格式化输出 System.</description>
+    </item>
+    
+    <item>
+      <title>异常处理</title>
+      <link>https://qinry.github.io/posts/2019-11-24-java-exceptions/</link>
+      <pubDate>Sun, 24 Nov 2019 08:47:23 +0800</pubDate>
+      
+      <guid>https://qinry.github.io/posts/2019-11-24-java-exceptions/</guid>
+      <description>异常抛出 创建一个异常对象，然后从当前环境对象抛出，阻止当前方法或作用域的执行。
+语法: throw new NullPointerException, 关键字throw之后，和创建普通对象一样创建异常对象, new &amp;lt;异常类&amp;gt;。
+异常捕获 try块中执行代码，遇到异常抛出，交给catch捕获, 然后进行异常处理。将try-catch语句可以放入while循环，由于try中抛出异常，会在catch中匹配，是不会回到原来的地方，在while帮助下，会恢复原来之前地方继续执行，这是一种恢复模型（不太实用，尽量少用，因为它会导致耦合），不然就是终止模型。
+语法:
+try {// 这里抛出异常} catch(Exception e) {// 这里匹配后处理}异常说明 为了让调用者能知道方法可以抛出异常，以便于捕获它们，使用异常说明，作为方法声明的一部分,在参数列表之后，花括号之前。可以声明方法将抛出异常，实际不抛出，为异常先占个位子，对于定义抽象基类和接口时比较重要，其派生类或接口实现将能抛出预声明的异常
+语法:
+void f() throws Exception {/// 会抛出异常}finally子句 用finally子句进行清理，不仅限于内存清理，还有资源恢复初始态，如把打开的文件关闭等等。常常将finally放在catch之后。
+语法:
+try {// 抛出异常} catch(Exception e) {// 处理异常} finally {// 清理}finally能保证总是执行的。在它之前有return，也会在方法结束前，执行finally子句。
+注意：finally有缺陷，会导致一些异常被忽略,如下:
+// 在某个类内部static void f() throws FirstException {}static void g() throws SecondException {}public static void main(String[] args) {try {try {f();} finally {g();}} catch(Exception e) {}}这里导致 f( ) 的FirstException被忽略。</description>
+    </item>
+    
+    <item>
+      <title>内部类</title>
+      <link>https://qinry.github.io/posts/2019-10-24-java-innerclass/</link>
+      <pubDate>Thu, 24 Oct 2019 16:48:18 +0800</pubDate>
+      
+      <guid>https://qinry.github.io/posts/2019-10-24-java-innerclass/</guid>
+      <description>创建内部类 直接将内部类置于外围类中
+// innerclasses/Parcel1.java// Creating inner classespublic class Parcel1 {class Contents {private int i = 11;public int value() { return i; }}class Destination {private String label;Destination(String whereTo) {label = whereTo;}String readLabel() { return label; }}// Using inner classes looks just like // using any other class, within Parcel1; public void ship(String dest) {Contents c = new Contents();Destination d = new Destination(dest);System.</description>
+    </item>
+    
+    <item>
+      <title>接口</title>
+      <link>https://qinry.github.io/posts/2019-10-22-java-interfaces/</link>
+      <pubDate>Tue, 22 Oct 2019 16:29:48 +0800</pubDate>
+      
+      <guid>https://qinry.github.io/posts/2019-10-22-java-interfaces/</guid>
+      <description>抽象类和抽象方法   抽象方法：仅有声明而没有方法体。 如： abstract void f();
+  抽象类： 包含抽象方法的类。
+  如果一个类包含一个或多个抽象方法，该类必须限定为抽象的。如：abstract class A {}
+继承抽象类，如果不把抽象方法提供定义， 那么导出类也是抽象类，所以要创建抽象类的子类的对象，必须在子类为基类提供方法的定义。有时，我们也可能创建一个没有任何抽象方法的抽象类，比如不想创建该类的对象，可声明为abstract。
+抽象类还是很有用的重构1工具，因为它们使得我们可以很容易地将公共方法沿继承层次结构上移动。
+接口 使用关键字interface 产生一个完全抽象的类，它根本就没有提供任何具体实现。
+interface Instrument { void play(); String what(); void adjust(); }接口只提供形式，不提供具体实现。可在interface前添加public（但仅限于该接口在与其同名文件中被定义）。如果不添加public，它只有包访问权限。包也可以包含域，但是这些域隐式地是static和final的；方法如果没声明为public，是会自动转换为public的
+implements关键字让一个类遵循某个特定的接口，实现接口的功能。 如：
+class Wind implements Instrument {void play() {}String what() {}void adjust() {}}实现了一个接口时，在接口中被定义的方法必须被定义为public；否则，它们将只能得到默认的包访问权限，这样的方法被继承的过程中，其访问权限就被降低了，这是Java编译器所不允许的。
+通过适配器模式，将接口从具体实现中解耦使得接口可以应用于多种不同的具体实现，因此代码也就更具可复用性
+多重继承 在C++中，组合多个类的接口的行为称作多重继承。每个类都有具体的实现，这样代码量会大的多，编写相较麻烦。
+在Java中，你可以执行相同的行为，但只有一个类可以有具体的实现。代码量比C++少了不少。
+如果要从一个非接口的类继承，那么只能从一个类去继承。其余基元素必须是接口。需要将所有接口名都置于implements关键字之后，用逗号将它们一一隔开。将具体类和多个接口组合在一起，此具体类必须放在前面，后面跟着的才是接口（否则编译器报错）
+使用接口的核心原因：为了能够向上转型为多个基类型（以及由此带来的灵活性）。还有与使用抽象基类相同，防止客户端程序员创建该类对象，并确保这仅仅是接口。允许同一个类有多个具体的实现
+应该使用接口还是抽象类 如果要创建不带任何方法定义和成员变量的基类，那么应该选择接口而不是抽象类型。
+接口继承 一般情况下，只可以将extends 用于单一类，但是接口可以引用多个基类接口。
+组合接口时的命名冲突 在打算组合的不同接口中使用相同的方法名通常会造成代码可读性的混乱，请尽量避免这种情况。重载方法仅通过返回类型是分不开的。
+接口中的域 接口中的域默认是static，final的，所以接口是成为一种很便捷的用来创建常量组的工具。过去JavaSE5，用它来产生C和C++的enum类型效果。
+嵌套接口 接口可以嵌套于接口或类中。 嵌套于接口的接口是不能声明为private，必须是public，在此会严格执行。实现一个接口时，并不需要实现嵌套在其内部的任何接口。而且，private接口不能在定义它的 类 之外被发现，只能被类自身所使用。</description>
+    </item>
+    
+    <item>
+      <title>多态</title>
+      <link>https://qinry.github.io/posts/2019-10-21-java-polymorphism/</link>
+      <pubDate>Mon, 21 Oct 2019 17:01:44 +0800</pubDate>
+      
+      <guid>https://qinry.github.io/posts/2019-10-21-java-polymorphism/</guid>
+      <description>多态的作用  消除类型间的耦合关系 改善代码的组织结构和可读性，还能够创建可扩展程序  绑定 将一个方法调用同一个方法主体关联起来称为绑定。若在程序执行前进行绑定，叫做前期绑定；而在运行时根据对象的类型进行绑定，叫后期绑定。有了后期绑定，多态的特性才能够呈现，编译器无法知道对象类型，只能通过安置类型信息来鉴别，这就要程序运行时方法调用基于类型信息匹配正确的方法主体。Java除了final方法和static方法外，都是后期绑定。
+ 注：域和静态方法不支持多态；覆盖private（隐式final）方法，虽然编译器不报错，但是不要这么做，会出现混淆。（之前第七章有提过）  构造器内部的多态方法行为 初始化（此处未考虑基类构造器调用之前基类静态成员和基类非静态成员的指定初始化）
+ 分配给对象的存储空间初始化为二进制的0(某些特殊类型中与0等价的值) 调用基类的构造器 按声明顺序调用成员初始化。 调用导出类构造器主体   注：避免在构造器调用其他类内方法，唯一安全的方法是基类的final方法  向下转型 用圆括号里面放入你想转换的类型，Java会自动做类型检查和转换。如: (type)object。有误会报错。
+协变类型 表示导出类的被覆盖方法可以返回基类方法的返回类型的某个导出类</description>
+    </item>
+    
+    <item>
+      <title>复用类</title>
+      <link>https://qinry.github.io/posts/2019-10-21-java-reuse/</link>
+      <pubDate>Mon, 21 Oct 2019 12:54:56 +0800</pubDate>
+      
+      <guid>https://qinry.github.io/posts/2019-10-21-java-reuse/</guid>
+      <description>从现有类生成新类型  组合： 一般将现有类型作为新类型底层实现一部分来加以复用 继承：仅仅复用接口 用到 extends关键字  继承 继承中的初始化 在构造器中调用基类构造器来执行初始化来执行初始化。对象包含基类的子对象，它的正确初始化很重要
+清理 必须显式编写特殊方法，还必须将这清理动作置于finally子句（异常处理的内容，以后再谈，只知道异常与否都会最后执行的代码）中，以防异常，最好不适用finalize()。
+继承和组合的选择 一般最后选择组合，因为编程更为灵活。当类型有向上转型的需求是，则使用继承
+有时允许类用户直接访问新类中的组合成分（将成员对象声明为public）如果成员对象自身隐藏了实现，这么做是安全的
+@Override 注解表示方法要覆写（如果重载，报错）
+final关键字 可以使用在数据（域），方法， 类
+修饰数据，表示值不可改变。意思是说，永远不改变编译常量，还有运行时初始化后不可再改变。当域既是final，又是static，表示一块存储区域不可以改变；空白的final在使用前必须初始化；而却允许final修饰参数列表（类似于C函数参数中const）
+ 注：上面说明了final修饰基本数据类型的情况，如果final修饰声明是对象引用，表示引用的指向不可改变，不代表不可改变对象  置于方法之前，表示禁止覆盖此方法（在继承中使用），继承不能覆写该方法；或者不再继承中使用，会同意编译器将方法内嵌调用以提高速度（类似C的内联函数）
+ 注：不可以覆盖private方法，会造成混淆，因为本质并不是覆盖，仅是生成新方法，名称与基类private相同，且编译器不宝座  final类表示不可被继承，所以方法隐式指定为final，而域自己选择是否为final。是否使用final类，主要出于设计的考虑
+ 注： Java中基类重载方法名称，在派生类重新定义该名称方法不会屏蔽基类的重载版本（与C++不同）  </description>
+    </item>
+    
+    <item>
+      <title>访问权限</title>
+      <link>https://qinry.github.io/posts/2019-10-21-java-access/</link>
+      <pubDate>Mon, 21 Oct 2019 09:06:40 +0800</pubDate>
+      
+      <guid>https://qinry.github.io/posts/2019-10-21-java-access/</guid>
+      <description>访问权限控制  public （公共访问权限, 谁都可以访问） private （类内私有，用户无法访问） protected （继承访问权限，也提供包内访问） 包访问权限（没有关键词修饰，供包内使用）  类访问权限，除内部类外，仅有两种选择：public和包访问权限
+  每个编译单元只能有一个public类
+  public名称必须完全与编译单元文件名相匹配，包括大小写
+  关键词：import , package 1.import用于导入类库；import static静态导入，导入的是静态对象或静态方法
+2.package用于包命名（都必须是小写，用句点划分目录。如：package net.mindview.util;），而且其位置必须放在代码除注释外的第一行。如果源文件没有包命名，将做为默认包，可以在同一目录访问默认包部分(不具package声明的文件)或被默认包部分访问,不能被包外访问
+控制对成员的访问权限原因（2个）：
+  为使用户不要碰触不该碰触的部分，这些部分对类内部的操作是必要，但是它们并不属于客户端程序员所需要接口一部分，将域和方法指定private
+  为了让类库设计者可以更改类的内部工作方式，而不必担心对客户端程序员产生影响，接口和实现分离加以保护，访问控制权限确保任何客户端程序员不会依赖底层实现的任何部分
+  </description>
+    </item>
+    
+    <item>
+      <title>初始化和清理</title>
+      <link>https://qinry.github.io/posts/2019-10-20-java-initialization/</link>
+      <pubDate>Sun, 20 Oct 2019 09:28:44 +0800</pubDate>
+      
+      <guid>https://qinry.github.io/posts/2019-10-20-java-initialization/</guid>
+      <description>构造器确保初始化 构造器确保初始化，名字与类名一致，允许重载，且是特殊的无返回值(与void不同)的方法。
+在Java中，初始化与创建绑定在一起的
+区别重载方法 通过不一样参数列表区分
+整型常数值传入方法被当做int, char类型值如果没有匹配char参数方法，char会提升为int
+默认构造器 就是指没有参数列表的构造器，如果未定义此方法，编译器会自动合成；若有定义，则不会自动创建
+关键词this 只用在方法内部，表示当前对象的引用；如果在方法内调用同个类的另个方法，就不必使用this，直接调用即可。
+在构造器中调用构造器 注：尽管可以this调用一个构造器，但却不能调用两个。此外，必须将构造器调用置于最起始处，否则compiler报错
+static方法 static方法一般不能调用非static方法，反过来却可以。
+注：Java禁止全局方法，但在类中置入static方法可以访问其他static方法和static域
+清理 &amp;ndash; 终结处理和垃圾回收 要知道：
+ 对象可能不被垃圾回收 垃圾回收并等于“析构” 垃圾回收（回收不使用内存）只与内存有关  finalize()方法  finalize()不该作为通用清理方法，针对特殊需求，比如通过new创建对象以外的方式分配空间，使用非Java代码，可用finalize()用本地方法调用 验证对象终结条件  System.gc() 强制进行终结
+注：Java不允许创建局部对象，必须使用new创建。“终结”和“垃圾回收”不保证发生，这是考虑到垃圾回收器自身的开销，当JVM面临内存耗尽，才很可能执行回收对象，恢复内存
+垃圾回收器 （边回收空间，边重新排列对象，但不保证一定发生） 简单说说它的工作机制（详细见《深入理解Java虚拟机》，周志明著），采用自适应技术，会有内存页面调度（将页面移进移出硬盘，且显著影响性能）
+  停止-复制 ：先暂停程序，将存活的对象从旧堆复制到新堆，并且复制后的对象排列紧凑，未被复制的对象都是垃圾。复制的对象所绑定的引用要修正，以指向复制后的新对象。特点：维护空间比实际大，效率低。
+  标记-清扫 ： 也会导致程序暂停。对存活的对象进行标记，所有对象标记完再清理未标记的，堆空间不连续，对象可能会重新整理。特点：针对少垃圾甚至无垃圾的情况效率才高，一般情况下效率低。
+  分代 ： 块有对应的代数(generation count)，它是堆上分配较大的内存。其代数记录对象是否还存活。如果块在某处被引用，其代数增加。特点：对大量临时对象处理有帮助，定期进行完整清理&amp;ndash;大对象不被复制（代数增加），内含小对象被复制并整理
+  附加技术提速（特别是hotspot），即时编译器(Just-In Time, JIT)
+  类文件中字节码装载内存，有两方案：
+ 全部代码编译，缺点就是费时，可执行代码加长，导致页面调度，影响性能 惰性评估（必要时才编译）  成员初始化  指定初始化 构造器初始化（给编程带来更大的灵活性） 自动初始化发生在调用构造器之前  注：static可用于域，不可用于局部变量 初始化顺序：先静态后非静态对象</description>
+    </item>
+    
+    <item>
+      <title>git入门使用</title>
+      <link>https://qinry.github.io/posts/2019-10-20-git-simple-usage/</link>
+      <pubDate>Sun, 20 Oct 2019 08:50:01 +0800</pubDate>
+      
+      <guid>https://qinry.github.io/posts/2019-10-20-git-simple-usage/</guid>
+      <description>配置Git 提供Git用户名和邮箱
+ $ git config &amp;ndash;global user.name &amp;ldquo;username&amp;rdquo; $ git config &amp;ndash;global user.email &amp;ldquo;usernaem@example.com&amp;rdquo;
+ 忽略文件 创建文件 .gitignore ，让Git忽略某目录中的所有文件(不跟踪这些文件)，使用它可以避免项目混乱
+初始化仓库  $ git init
+ 仓库是程序中被Git主动跟踪的一组文件。Git用来管理仓库的文件都存储在隐藏的.git/中，你根本不需要与这个目录打交道，但千万不要删除这个目录，否则将丢弃项目的所有历史记录。
+检查状态  $ git status
+ 在Git中，分支 是项目的一个版本。提交 是项目在特定时间点的快照。
+文件添加到仓库  $ git add [&amp;lt; file &amp;gt; | &amp;lt; path &amp;gt;]
+ 只是让Git开始关注指定文件或目录中的文件。但未提交。
+执行提交  $ git commit -m &amp;lt; message &amp;gt;
+ 标志-m 让Git将接下来的消息记录到项目的历史记录中
+ $ git commit -am &amp;lt; message &amp;gt;</description>
+    </item>
+    
+    <item>
+      <title>控制流程</title>
+      <link>https://qinry.github.io/posts/2019-10-19-java-control-flow/</link>
+      <pubDate>Sat, 19 Oct 2019 20:27:47 +0800</pubDate>
+      
+      <guid>https://qinry.github.io/posts/2019-10-19-java-control-flow/</guid>
+      <description>关键词：if-else, while, do-while, for, return, break, continue, switch
+条件判断 (if-else) 判断某个条件是否为真，若为真，则执行 if 后的语句;为假执行else后的语句
+例如:
+int i = 47;if (i % 2 == 0)System.out.println(&amp;#34;The number is even!&amp;#34;);elseSystem.out.println(&amp;#34;The number is odd!&amp;#34;);while循环 进口循环 (while) 先判断条件是否为真才执行循环动作，条件为真就执行代码；直到为假，才停止循环
+例如
+int i = 0;while ( i &amp;gt; 0) {System.out.println(i--);}output:没有输出!!!出口循环 (do-while) 先执行一次代码再判断条件是否为真才继续执行代码，直到假才停止
+例如：
+int i = 0;do{System.out.println(i--);} while(i &amp;gt; 0);output:-1注：do-while执行判断的次数比while少一次</description>
+    </item>
+    
+    <item>
+      <title>操作符</title>
+      <link>https://qinry.github.io/posts/2019-10-18-java-operator/</link>
+      <pubDate>Fri, 18 Oct 2019 21:55:03 +0800</pubDate>
+      
+      <guid>https://qinry.github.io/posts/2019-10-18-java-operator/</guid>
+      <description>静态导入 通过封装，自建类库已到达更简短语句答应字符串。可以静态导入（import static LibraryName）类库中静态对象
+表达式 副作用：有些运算符可能会改变操作对象的值
+一个表达式有多个操作符时，它们的优先级影响计算顺序，一般规则先乘除后加减，括号最先进行
+System.out.println() 内含+, 其前是String，其后操作对象非String会转换成String，如果它是String， 不用字符串转换。最后+ 起到拼接作用
+赋值( &amp;lsquo;=&amp;rsquo; )   基本类型，右值拷贝赋值给左值
+  对象，实际赋值操作是对象引用复制，可以理解为对象取多一个别名
+注： 小心对象的赋值操作 一般不直接操作对象的域(形如 Object.field = value) ，容易导致混乱，违背良好的面向对象程序设计原则
+  算术操作符 加减乘除，取余运算 加号 +, 减号 -, 乘号*, 除号 /, 求模% ,以及它们和赋值 =的复合：+=，-=, *=, /=, %=
+注：%%= 作用于整数类型,以上是二元运算符
+正负号 一元加减运算符+, - 。 减号结果返回操作数的相反数，但操作数不改变, 加号返回值符号不变， 如果类型是小类型（如：short ,byte, char）会提升类型为int,也不改原操作数
+注：boolean不能进行加减乘除，取余运算
+自增自减运算符 前缀自增自减是先算后返回 (如：++intVar)，后缀自增自减是先返回后算 (如：intVar++)
+关系运算符 运算结果是boolean类型值(非false即true), 分别有 &amp;gt; , &amp;lt;, ==, !=, &amp;gt;=, &amp;lt;=。等于和不等于适合所有的基本类型，其他比较运算符 对于boolean不适用</description>
+    </item>
+    
+    <item>
+      <title>一切都是对象</title>
+      <link>https://qinry.github.io/posts/2019-10-18-java-objects/</link>
+      <pubDate>Fri, 18 Oct 2019 20:41:27 +0800</pubDate>
+      
+      <guid>https://qinry.github.io/posts/2019-10-18-java-objects/</guid>
+      <description>对象及内存分布   在Java中一切都被视为对象，但操纵的标识符实际上是对象的“引用”
+  字符串可以用带引号的初始值， 如： String s = &amp;quot;sdf&amp;quot;;
+  关键字 new 用来创建一个新对象，存在于堆中
+  对象在内存中的分布
+  寄存器 最快存储区（Java中是按需在这里分配，程序员不直接管理）
+  堆栈 位于通用RAM。比较快速有效的分配内存，次于寄存器
+  堆 一种通用的内存池。（大部分对象存储在这），有较高的灵活性
+  常量储存 常量直接存用程序代码内部；有时在嵌入式系统，常量与其他部分分离，一般存于ROM中
+  非RAM存储 数据存活于之外。常例：流对象、持久化对象
+    数据类型 基本类型 基本数据类型 boolean, char, byte, short, int, long, float, double , void
+注： boolean 有两个字面量常量true和false； 基本类型有对应的包装器类型，并在堆上创建对象以表示相应的基本类型。两者可以相互转换（自动包装）
+2个高精度的类似包装器类型的计算类（没有有对应的基本类型）： BigInteger 和 BigDecimal4  运算速度相较于其他基本算术类型及其相应的包装器类型要慢，但精度高支持任何精度 BigInteger 支持整数 BigDecimal 支持定点数（不是浮点数），可用于货币运算  数组 Java中数组被确保初始化， 且不能越界访问，为此增加了开销换来安全性和效率的提高。如果数组存放对象，实际上数组为一个引用数组（C++是不允许的），元素引用初始值为null，未指定对象；存放的是基本数据类型，初始化为0</description>
+    </item>
+    
+    <item>
+      <title>数据结构与算法分析(笔记) -- 开始</title>
+      <link>https://qinry.github.io/posts/2019-10-17-algorithm-beginning/</link>
+      <pubDate>Thu, 17 Oct 2019 23:29:10 +0800</pubDate>
+      
+      <guid>https://qinry.github.io/posts/2019-10-17-algorithm-beginning/</guid>
+      <description>递归使用的基本法则  基准情形：要有退出条件 不断推进：从初始条件趋向退出条件 设计准则 ：假设递归准确执行 合成效益法则：防止重复工作，比如生成斐波那契数列的递归实现使用双递归，导致一些工作的重复，进而影响效率  递归符合前三个法则才能正确进行，符合第四法则递归的使用才有意义。虽然递归的代码逻辑清晰，不过某些情况效率不高。当递归不能很好解决问题时，可能考虑采用迭代。
+算法分析 4种描述算法效率的数学模型，常用的有大O记法
+大O记法：时间T(N) = O( f( N ) ), 意思是T( N ) 的相对增长率小于 f(N)
+计算运行时间 一般法则
+ FOR循环 嵌套的FOR循环 顺序语句 IF/ELSE语句   最大子序列和问题解 算法1（嵌套3层for循环） intMaxSubsequenceSum(const int A[], int N){int ThisSum, MaxSum, i, j, k;MaxSum = 0;for (i = 0; i &amp;lt; N; i++)for (j = i; j &amp;lt; N; j++){ThisSum = 0;for (k = i; k &amp;lt;= j; k++)ThisSum += A[k];if (ThisSum &amp;gt; MaxSum)MaxSum = ThisSum;}return MaxSum;}算法2（嵌套2层for循环） intMaxSubsequenceSum(const int A[], int N){int ThisSum, MaxSum, i, j;MaxSum = 0;for (i = 0; i &amp;lt; N; i++){ThisSum = 0;for (j = i; j &amp;lt; N; j++){ThisSum += A[j];if (ThisSum &amp;gt; MaxSum)MaxSum = ThisSum;}}return MaxSum;}算法3（分治） int Max3(int x, int y, int z){return (x &amp;gt; y?</description>
+    </item>
+    
+  </channel>
+</rss>

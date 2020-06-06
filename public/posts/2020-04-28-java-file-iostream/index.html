@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <link href="https://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.62.0" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>文件路径与I/O流 &middot; qinry&#39;s blog</title>
+  <meta name="description" content="" />
+
+  
+  <link type="text/css" rel="stylesheet" href="https://qinry.github.io/css/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="https://qinry.github.io/css/poole.css">
+  <link type="text/css" rel="stylesheet" href="https://qinry.github.io/css/syntax.css">
+  <link type="text/css" rel="stylesheet" href="https://qinry.github.io/css/hyde.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  
+</head>
+
+  <body class=" ">
+  <aside class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="https://qinry.github.io"><h1>qinry&#39;s blog</h1></a>
+      <p class="lead">
+       在此写下学习日志，努力充电中～ 
+      </p>
+    </div>
+
+    <nav>
+      <ul class="sidebar-nav">
+        <li><a href="https://github.com/qinry"> Github </a></li>
+      </ul>
+    </nav>
+
+    <p>&copy; 2020. All rights reserved. </p>
+  </div>
+</aside>
+
+    <main class="content container">
+    <div class="post">
+  <h1>文件路径与I/O流</h1>
+  <time datetime=2020-04-28T17:42:29&#43;0800 class="post-date">Tue, Apr 28, 2020</time>
+  <h2 id="file">File类</h2>
+<p><code>File</code>类作用和它的名字不太相符，File除了可以代表一个特定的文件，还可以表示一个目录（包含一组文件），最准确认为是“路径”。还一个与之相关的接口<code>FilenameFilter</code>，用来筛选路径的目录或文件。它们在java.io包中。</p>
+<p>用例：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#f92672">import</span> java.util.regex.*<span style="color:#f92672">;</span>
+<span style="color:#f92672">import</span> java.util.*<span style="color:#f92672">;</span>
+<span style="color:#f92672">import</span> java.io.*<span style="color:#f92672">;</span>
+<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">DirList</span> <span style="color:#f92672">{</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span>String<span style="color:#f92672">[</span><span style="color:#f92672">]</span> args<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        File path <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> File<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;.&#34;</span><span style="color:#f92672">)</span><span style="color:#f92672">;</span> <span style="color:#75715e">// .表示当前工作路径
+</span><span style="color:#75715e"></span>        String<span style="color:#f92672">[</span><span style="color:#f92672">]</span> list<span style="color:#f92672">;</span>
+        <span style="color:#66d9ef">if</span><span style="color:#f92672">(</span>args<span style="color:#f92672">.</span><span style="color:#a6e22e">length</span> <span style="color:#f92672">=</span><span style="color:#f92672">=</span> 0<span style="color:#f92672">)</span>
+            list <span style="color:#f92672">=</span> path<span style="color:#f92672">.</span><span style="color:#a6e22e">list</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+        <span style="color:#66d9ef">else</span>
+            list <span style="color:#f92672">=</span> path<span style="color:#f92672">.</span><span style="color:#a6e22e">list</span><span style="color:#f92672">(</span><span style="color:#66d9ef">new</span> DirFilter<span style="color:#f92672">(</span>args<span style="color:#f92672">[</span>0<span style="color:#f92672">]</span><span style="color:#f92672">)</span><span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+        Arrays<span style="color:#f92672">.</span><span style="color:#a6e22e">sort</span><span style="color:#f92672">(</span>list<span style="color:#f92672">,</span> String<span style="color:#f92672">.</span><span style="color:#a6e22e">CASE_INSENSITIVE_ORDER</span><span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+        <span style="color:#66d9ef">for</span><span style="color:#f92672">(</span>String dirItem <span style="color:#f92672">:</span> list<span style="color:#f92672">)</span>
+            System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>dirItem<span style="color:#f92672">)</span>
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">DirFilter</span> <span style="color:#66d9ef">implements</span> FilenameFilter <span style="color:#f92672">{</span>
+    <span style="color:#66d9ef">private</span> Pattern pattern<span style="color:#f92672">;</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#a6e22e">DirFilter</span><span style="color:#f92672">(</span>String regex<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        pattern <span style="color:#f92672">=</span> Pattern<span style="color:#f92672">.</span><span style="color:#a6e22e">compile</span><span style="color:#f92672">(</span>regex<span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+    <span style="color:#f92672">}</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">boolean</span> <span style="color:#a6e22e">accept</span><span style="color:#f92672">(</span>File dir<span style="color:#f92672">,</span> String name<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">return</span> pattern<span style="color:#f92672">.</span><span style="color:#a6e22e">matcher</span><span style="color:#f92672">(</span>name<span style="color:#f92672">)</span><span style="color:#f92672">.</span><span style="color:#a6e22e">matches</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><p>File的list(FilenameFilter)或者list()方法产生工作目录下的文件名的数组，本质是String数组,还有类似的listFiles(FilenameFilter)或listFiles()方法工作目录的生成File数组。</p>
+<h2 id="file-1">File的一些方法</h2>
+<table>
+<thead>
+<tr>
+<th>方法名/构造器</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>File(String parent, String child)</td>
+<td>构造File类</td>
+</tr>
+<tr>
+<td>File(String pathname)</td>
+<td>构造File类</td>
+</tr>
+<tr>
+<td>boolean isFile()</td>
+<td>此路径的目标是否为文件</td>
+</tr>
+<tr>
+<td>boolean isDirectory()</td>
+<td>此路径的目标是否为目录</td>
+</tr>
+<tr>
+<td>boolean delete()</td>
+<td>删除文件或目录</td>
+</tr>
+<tr>
+<td>boolean mkdirs()</td>
+<td>创建目录路径，包括一些不存在的父路径</td>
+</tr>
+<tr>
+<td>String getAbsolutePath()</td>
+<td>返回绝对路径名</td>
+</tr>
+<tr>
+<td>String getParent()</td>
+<td>获得绝对路径上的上级路径名</td>
+</tr>
+<tr>
+<td>String getPath()</td>
+<td>获得相对路径名</td>
+</tr>
+<tr>
+<td>boolean canRead()</td>
+<td>是否可读</td>
+</tr>
+<tr>
+<td>boolean canWrite()</td>
+<td>是否可写</td>
+</tr>
+<tr>
+<td>boolean getName()</td>
+<td>文件或目录的路径名</td>
+</tr>
+<tr>
+<td>long lastModified()</td>
+<td>获得上次修改文件的时间</td>
+</tr>
+<tr>
+<td>boolean renameTo(File)</td>
+<td>更改文件名</td>
+</tr>
+<tr>
+<td>long length()</td>
+<td>获得文件长度</td>
+</tr>
+</tbody>
+</table>
+<h2 id="io">I/O流</h2>
+<p>流代表有能力产出数据的数据对象，或者有能力接受数据的接收端对象，流屏蔽了I/O设备处理数据的细节。数据来源有字节数组、String对象、文件、管道、多种流组合的序列、其他数据源(如:Internet连接等)；数据的去向有字节数组(非String)、文件或管道。</p>
+<p>面向字节的流有InputStream、OutputStream，面向字符的流有Reader、Writer。有专门的适配器将字节流转换为字符流。常用的流对象和过滤器如下：</p>
+<table>
+<thead>
+<tr>
+<th align="center">Java1.0</th>
+<th align="center">Java1.1</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">InputStream(基类)</td>
+<td align="center">Reader(基类)</td>
+</tr>
+<tr>
+<td align="center">(空)</td>
+<td align="center">InputStreamReader，将InputStream转换为Reader</td>
+</tr>
+<tr>
+<td align="center">OutputStream(基类)</td>
+<td align="center">Writer(基类)</td>
+</tr>
+<tr>
+<td align="center">(空)</td>
+<td align="center">OutputStreamWriter，将OutputStream转换为Writer</td>
+</tr>
+<tr>
+<td align="center">FileInputStream</td>
+<td align="center">FileReader</td>
+</tr>
+<tr>
+<td align="center">FileOutputStream</td>
+<td align="center">FileWriter</td>
+</tr>
+<tr>
+<td align="center">StringBufferInputStream(弃用)</td>
+<td align="center">StringReader</td>
+</tr>
+<tr>
+<td align="center">(无)</td>
+<td align="center">StringWriter</td>
+</tr>
+<tr>
+<td align="center">ByteArrayInputStream</td>
+<td align="center">CharArrayReader</td>
+</tr>
+<tr>
+<td align="center">ByteArrayOutputStream</td>
+<td align="center">CharArrayWriter</td>
+</tr>
+<tr>
+<td align="center">PipedInputStream</td>
+<td align="center">PipedReader</td>
+</tr>
+<tr>
+<td align="center">PipedOutputStream</td>
+<td align="center">PipedWriter</td>
+</tr>
+</tbody>
+</table>
+<p>过滤器用于包装上面的类，使之增加额外的功能，如缓冲、打印、数据格式化等等</p>
+<table>
+<thead>
+<tr>
+<th align="center">过滤器</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">FilterInputStream(基类)</td>
+<td align="center">FilterReader</td>
+</tr>
+<tr>
+<td align="center">FilterOutputStream(基类)</td>
+<td align="center">FilterWriter(抽象类，无子类)</td>
+</tr>
+<tr>
+<td align="center">BufferedInputStream</td>
+<td align="center">BufferedReader</td>
+</tr>
+<tr>
+<td align="center">BufferedOutputstream</td>
+<td align="center">BufferedWriter</td>
+</tr>
+<tr>
+<td align="center">PrintStream</td>
+<td align="center">PrintWriter</td>
+</tr>
+</tbody>
+</table>
+<p>过滤器还有读写基本数据类型的过滤器DataInputStream和DataOutputStream</p>
+<p>非常适合文件有搜寻方法的RandomAccessFilem,同时具备读写基本数据类型和UTF-8字符能力。</p>
+<h3 id="heading">常用的读写方法</h3>
+<p>InputStream或Reader都有<code>int read()</code>方法,OutputStream或Writer都有<code>void write(int)</code>。</p>
+<p>基本读写操作:</p>
+<ol>
+<li>缓冲输入: BufferedReader的<code>String readLine()</code>(读取一行字符串，除去换行符&rsquo;\n&rsquo;)</li>
+<li>数据格式化输入: DataInputStream、RandomAccessFile的<code>byte readByte()</code>、<code>String readUTF()</code>等</li>
+<li>打印输出:PrintWriter、PrintStream的<code>print()</code>、<code>println()</code>、<code>void printf()</code>的各种重载方法</li>
+<li>数据格式化输出:DataOutputStream、RandomAccessFile的<code>writeDouble(double)</code>、<code>writeUTF(String)</code>等</li>
+</ol>
+<h3 id="randomaccessfile">RandomAccessFile类</h3>
+<p>其构造器第一个参数文件路径名,第二参数是&quot;r&quot;表示只读或&quot;rw&quot;读写。<code>long getFilePointer()</code>获得文件位置,<code>seek(long)</code>移动文件位置,<code>long length()</code>表示文件最大尺寸。它绝大功能已被nio存储映射文件取代。</p>
+<h2 id="io-1">标准I/O</h2>
+<p>简单说,在操作系统中的程序与系统的交互方式。程序的输入来自标准输入流,程序输出到标准输出流可以作为另一个程序的输入流,还有用于打印错误消息的标准错误流。System.in、System.out、System.err分别是标准输入流、标准输出流和标准错误流。System.out和System.err是PrintStream且已经被包装过了,所以可以直接使用。而System.in使用前必须进行包装</p>
+<h3 id="heading-1">重定向</h3>
+<p>静态方法支持标准输入输出错误流重定向:<code>setOut(PrintStream)</code>、<code>setErr(PrintStream)</code>、<code>setIn(InputStream)</code> ,明显重定向操纵字节流。</p>
+<h4 id="heading-2">进程控制</h4>
+<p>操作系统非常见到Java程序调用另一个程序,还用控制当中的输入输出,输出是发送到控制台的。简单地可以使用<code>ProcessBuilder</code>类实现该操作。</p>
+<p>用例:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#f92672">import</span> java.io.*<span style="color:#f92672">;</span>
+<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">StartProcess</span> <span style="color:#f92672">{</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span>String<span style="color:#f92672">[</span><span style="color:#f92672">]</span> args<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        Process process <span style="color:#f92672">=</span> 
+            <span style="color:#66d9ef">new</span> ProcessBuilder<span style="color:#f92672">(</span>args<span style="color:#f92672">.</span><span style="color:#a6e22e">split</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34; &#34;</span><span style="color:#f92672">)</span><span style="color:#f92672">)</span>
+                <span style="color:#f92672">.</span><span style="color:#a6e22e">start</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+        BufferedReader results <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> BufferedReader<span style="color:#f92672">(</span>
+            <span style="color:#66d9ef">new</span> InputStreamReader<span style="color:#f92672">(</span>process<span style="color:#f92672">.</span><span style="color:#a6e22e">getInputStream</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span><span style="color:#f92672">)</span><span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+        String s<span style="color:#f92672">;</span>
+        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;output:&#34;</span><span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+        <span style="color:#66d9ef">while</span><span style="color:#f92672">(</span><span style="color:#f92672">(</span>s <span style="color:#f92672">=</span> results<span style="color:#f92672">.</span><span style="color:#a6e22e">readLine</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span><span style="color:#f92672">)</span> <span style="color:#f92672">!</span><span style="color:#f92672">=</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+            System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>s<span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+        <span style="color:#f92672">}</span>
+        BufferedReader err <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> BufferedReader<span style="color:#f92672">(</span>
+            <span style="color:#66d9ef">new</span> InputStreamReader<span style="color:#f92672">(</span>process<span style="color:#f92672">.</span><span style="color:#a6e22e">getErrorStream</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span><span style="color:#f92672">)</span><span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;error&#34;</span><span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+        <span style="color:#66d9ef">while</span><span style="color:#f92672">(</span><span style="color:#f92672">(</span>s <span style="color:#f92672">=</span> readLine<span style="color:#f92672">(</span><span style="color:#f92672">)</span><span style="color:#f92672">)</span> <span style="color:#f92672">!</span><span style="color:#f92672">=</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+            System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>s<span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+        <span style="color:#f92672">}</span>
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+</code></pre></div>
+</div>
+
+
+    </main>
+
+    
+  </body>
+</html>

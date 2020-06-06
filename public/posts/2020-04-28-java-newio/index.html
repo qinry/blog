@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <link href="https://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.62.0" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>新I/O &middot; qinry&#39;s blog</title>
+  <meta name="description" content="" />
+
+  
+  <link type="text/css" rel="stylesheet" href="https://qinry.github.io/css/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="https://qinry.github.io/css/poole.css">
+  <link type="text/css" rel="stylesheet" href="https://qinry.github.io/css/syntax.css">
+  <link type="text/css" rel="stylesheet" href="https://qinry.github.io/css/hyde.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  
+</head>
+
+  <body class=" ">
+  <aside class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="https://qinry.github.io"><h1>qinry&#39;s blog</h1></a>
+      <p class="lead">
+       在此写下学习日志，努力充电中～ 
+      </p>
+    </div>
+
+    <nav>
+      <ul class="sidebar-nav">
+        <li><a href="https://github.com/qinry"> Github </a></li>
+      </ul>
+    </nav>
+
+    <p>&copy; 2020. All rights reserved. </p>
+  </div>
+</aside>
+
+    <main class="content container">
+    <div class="post">
+  <h1>新I/O</h1>
+  <time datetime=2020-04-28T20:16:54&#43;0800 class="post-date">Tue, Apr 28, 2020</time>
+  <p>通道是数据存储的地方，缓冲器充当着通道与外部数据交换的媒介</p>
+<h2 id="channel">通道Channel</h2>
+<p>FileChannel可以通过FileOutputStream、FileInputStream、RandomAccessFile三个类的getChannel()获得，这些都是字节操纵流。在通道上有读写，访问通道大小,关闭通道，更改所在位置等操作。</p>
+<p>FileChannel api:</p>
+<ul>
+<li>
+<p>public  int read(ByteBuffer dst) throws IOException 通道读给缓冲器</p>
+</li>
+<li>
+<p>public  int write(ByteBuffer src) throws IOException 缓冲器数据写进通道</p>
+</li>
+<li>
+<p>public  long size() 通道上文件当前大小</p>
+</li>
+<li>
+<p>public  long position() throws IOException  通道的文件位置</p>
+</li>
+<li>
+<p>public void close() throws IOException 关闭通道</p>
+</li>
+</ul>
+<h2 id="buffer">缓冲器Buffer</h2>
+<p>最基本的缓冲器ByteBuffer，可以从某个特定的基本数据类型的视窗查看底层的ByteBuffer。视窗缓冲器有CharBuffer、DoubleBuffer、IntBuffer等等，通过 <strong>as数据类型Buffer()</strong> 转换相应数据类型视图的Buffer</p>
+<p>Buffer有四个索引：mark(标记)、position(位置)、limit(界限)、capacity(容量)</p>
+<p>不同数据类型的Buffer api:</p>
+<p>读写操作前的准备</p>
+<ul>
+<li>
+<p>public final Buffer clear() 清理缓冲器，等待从通道读到数据</p>
+</li>
+<li>
+<p>public final Buffer flip() 将limit设置position值，position设置为0,mark丢弃，等待写数据到通道</p>
+</li>
+</ul>
+<hr>
+<p>关于Buffer索引的操作</p>
+<ul>
+<li>
+<p>public final int capacity() 返回缓冲器的容量</p>
+</li>
+<li>
+<p>public final Buffer rewind() position设为0，mark丢弃</p>
+</li>
+<li>
+<p>public final Buffer mark() 将mark设置为postion值</p>
+</li>
+<li>
+<p>public final Buffer position(int newPosition) position设置newPostion值</p>
+</li>
+<li>
+<p>public final int position() 返回postion</p>
+</li>
+<li>
+<p>public final Buffer reset() postion设置mark值</p>
+</li>
+<li>
+<p>public final int remaining() 返回(limit-postion)</p>
+</li>
+<li>
+<p>public final boolean hasRemaining() position与limit之间有元素，返回true</p>
+</li>
+</ul>
+<hr>
+<p>不同的Buffer数据传到不同的数组</p>
+<ul>
+<li>
+<p>数据类型的数组 array() 可选的</p>
+</li>
+<li>
+<p>数据类型的Buffer get(数据类型的数组)</p>
+</li>
+<li>
+<p>数据类型的Buffer get(数据类型的数组, 起始位置, 长度) 读到数组相应的位置和长度</p>
+</li>
+</ul>
+<hr>
+<ul>
+<li>
+<p>public  数据类型 get() 返回position上的数据类型的值</p>
+</li>
+<li>
+<p>public  数据类型 get(int index) 返回绝对位置上的数据类型值</p>
+</li>
+<li>
+<p>public  数据类型的Buffer put(数据类型) 在position上加入数据类型的值</p>
+</li>
+<li>
+<p>public  数据类型的Buffer put(数据类型, int index) 在绝对位置上加入数据类型的值</p>
+</li>
+<li>
+<p>public  数据类型的Buffer put(数据类型的数组) 加入一些列数据类型的值</p>
+</li>
+<li>
+<p>public  数据类型的Buffer put(数据类型的Buffer) 加入一些列数据类型的值</p>
+</li>
+<li>
+<p>public  数据类型的Buffer put(数据类型的数组, 起始位置, 长度) 加入一些列数据类型的值</p>
+</li>
+</ul>
+<hr>
+<p>静态方法产生Buffer</p>
+<ul>
+<li>
+<p>public static 数据类型的Buffer wrap(数据类型的数组)</p>
+</li>
+<li>
+<p>public static 数据类型的Buffer allocate(int capacity)</p>
+</li>
+</ul>
+<h2 id="mappedbytebuffer">内存映射文件MappedByteBuffer</h2>
+<p>以下是创建MappedByteBuffer的方法，内存映射文件开一个创建和修改太大的文件，可以方便想数组一样访问文件，如put(byte data)加入数据，get(int index)访问数据，它继承ByteBuffer，拥有父类所有的方法。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">MappedByteBuffer buff <span style="color:#f92672">=</span>
+    <span style="color:#66d9ef">new</span> RandomAccessFile<span style="color:#f92672">(</span>文件名<span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;rw&#34;</span><span style="color:#f92672">)</span><span style="color:#f92672">.</span><span style="color:#a6e22e">getChannel</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span>
+        <span style="color:#f92672">.</span><span style="color:#a6e22e">map</span><span style="color:#f92672">(</span>FileChannel<span style="color:#f92672">.</span><span style="color:#a6e22e">MapMode</span><span style="color:#f92672">.</span><span style="color:#a6e22e">READ_WRITE</span><span style="color:#f92672">,</span> POSITION<span style="color:#f92672">,</span> SIZE<span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+</code></pre></div><h2 id="charset">字符集CharSet</h2>
+<p>CharSet api:</p>
+<ul>
+<li>
+<p>public static Charset forName(String charsetName) 返回字符集对象</p>
+</li>
+<li>
+<p>public final Set&lt; String &gt; aliases() 包含字符集的别名的集合</p>
+</li>
+<li>
+<p>public final CharBuffer decode(ByteBuffer bb) 解码 (ByteBuffer -&gt; CharBuffer)</p>
+</li>
+<li>
+<p>public final ByteBuffer encode(CharBuffer cb)) 编码 (CharBuffer -&gt; ByteBuffer)</p>
+</li>
+<li>
+<p>public abstract CharsetDecoder newDecoder()</p>
+</li>
+<li>
+<p>public abstract CharsetEncoder newEncoder()</p>
+</li>
+</ul>
+<hr>
+<p>CharsetDecoder</p>
+<ul>
+<li>public final CharBuffer decode(ByteBuffer bb) 解码 (ByteBuffer -&gt; CharBuffer)</li>
+</ul>
+<hr>
+<p>CharsetEncoder</p>
+<ul>
+<li>public final ByteBuffer encode(CharBuffer cb)) 编码 (CharBuffer -&gt; ByteBuffer)</li>
+</ul>
+<h2 id="filelock">文件加锁FileLock</h2>
+<p>以下方式给文件加锁,release()可以释放suo</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">FileOuuputStream fos <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> FileOutputStream<span style="color:#f92672">(</span>文件名<span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+FileLock fl <span style="color:#f92672">=</span> fos<span style="color:#f92672">.</span><span style="color:#a6e22e">tryLock</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+<span style="color:#66d9ef">if</span><span style="color:#f92672">(</span>fl <span style="color:#f92672">!</span><span style="color:#f92672">=</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">)</span>
+    fl<span style="color:#f92672">.</span><span style="color:#a6e22e">release</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+fos<span style="color:#f92672">.</span><span style="color:#a6e22e">close</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+</code></pre></div><ul>
+<li>public FileLock tryLock(long position, long size, boolean shared) 对文件部分加非阻塞(共享/独享)锁，还有阻塞式的lock(),二者区别是lock()一定要获取锁，那怕阻塞别的线程，tryLock()是尝试获取。</li>
+</ul>
+<h2 id="heading">字节存放的次序</h2>
+<p>Big endian - 高位优先，最重要的字节存放到地址最低的存储单元(ByteOrder.BIG_ENDIAN), 常用在网络的数据传输</p>
+<p>Little endian - 低位优先，最重要的字节存放到地址最高的存储单元(ByteOrder.LITTLE_ENDIAN)</p>
+<ul>
+<li>
+<p>public final ByteBuffer order(ByteOrder bo) 编辑Buffer上的存放字节顺序</p>
+</li>
+<li>
+<p>public final ByteBuffer order() 默认高位优先的字节排序</p>
+</li>
+</ul>
+
+</div>
+
+
+    </main>
+
+    
+  </body>
+</html>
