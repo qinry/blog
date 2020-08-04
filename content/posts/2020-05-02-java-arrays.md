@@ -103,18 +103,18 @@ System.arraycopy(源数组, 源开始偏移量, 目标数组, 目标开始偏移
 
 ## 比较器
 
-自定义的数据类型可能没实现Comparable泛型口，数组的元素是该类型时，排序是要调用Comparable的compareTo()方法，所以排序无法进行。但是自建一个比较器Comparator来专门用于此类型的比较，弥补没实现Comparable泛型接口的类型，来用于排序操作。
+自定义的数据类型可能没实现Comparable泛型接口，数组的元素是该类型时，排序是要调用Comparable的compareTo()方法，所以排序无法进行。但是自建一个比较器Comparator来专门用于此类型的比较，弥补没实现Comparable泛型接口的类型，来用于排序操作。
 
 用例:
 
 ```java
-class compType {
+class CompType {
     int j;
     // ...
 }
 
-class compType implements Comparator<compType> {
-    public int compare(compType left, compType right) {
+class CompTypeComparator implements Comparator<CompType> {
+    public int compare(CompType left, CompType right) {
         return left.j < right.j ? -1 : ( left.j == right.j ? 0 : 1);
     }
 }
