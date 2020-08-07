@@ -10,7 +10,7 @@ tags: ["java"]
 
 首先展示集合类库较为完整图,实线代表具体的类，点线代表接口，短虚线代表抽象类。粗线框代表的类是最常用：
 
-![picture](https://qinry.github.io/images/containers.png)
+![picture](https://qinry.top/images/containers.png)
 
 Interface Collection< E > api:
 
@@ -412,7 +412,7 @@ Class Collections api:
 ---
 拷贝
 
-- public static < T > void copy(List<? super T> dest, List<? extends T> 
+- public static < T > void copy(List<? super T> dest, List<? extends T>
 src)
 
 ---
