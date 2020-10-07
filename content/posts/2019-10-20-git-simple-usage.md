@@ -60,7 +60,7 @@ Git提供了一个选项，让你能够打印提交历史条目的更简单的�
 
 ## 撤销修改
 
-> $ git  checkout -- < file >
+> $ git  checkout - - < file >
 
 命令`git checkout` 让你能够恢复到以前的任何提交。命令`git checkout .`放弃自最后一次提交后所做的所有修改，将项目恢复到最后一次提交的状态。
 
