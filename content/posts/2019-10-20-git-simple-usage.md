@@ -9,6 +9,7 @@ tags: ["git"]
 提供Git用户名和邮箱
 
 > $ git config --global user.name "username"
+
 > $ git config --global user.email "usernaem@example.com"
 
 ## 忽略文件
