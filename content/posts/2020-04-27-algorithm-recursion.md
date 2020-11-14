@@ -1,7 +1,8 @@
 ---
 title: "简简单单知道递归"
 date: 2020-04-27T20:21:23+08:00
-tags: ["algorithm"]
+categories: "算法"
+tags: ["算法"]
 ---
 
 ### 递归的含义

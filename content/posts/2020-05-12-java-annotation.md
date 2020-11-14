@@ -1,7 +1,8 @@
 ---
 title: "注解"
 date: 2020-05-12T22:06:42+08:00
-tags: ["java"]
+categories: "Java"
+tags: [ "Java"]
 ---
 
 ## 定义注解
@@ -9,7 +10,7 @@ tags: ["java"]
 ```java
 import java.lang.annotation.*;
 @Target(ElementType.METHOND)
-@Retention(RetentPolicy.RUNTIME)
+@Retention(RetentionPolicy.RUNTIME)
 public @interface UseCase {
     int id();
     String description() default "no description";

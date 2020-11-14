@@ -1,7 +1,8 @@
 ---
 title: "类型信息"
 date: 2019-11-28T18:25:37+08:00
-tags: [ "java"]
+categories: "Java"
+tags: [ "Java"]
 ---
 
 ## Class对象

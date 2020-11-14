@@ -1,7 +1,8 @@
 ---
 title: "文件路径与I/O流"
 date: 2020-04-28T17:42:29+08:00
-tags: ["java"]
+categories: "Java"
+tags: [ "Java"]
 ---
 
 ## File类

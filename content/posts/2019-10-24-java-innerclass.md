@@ -1,7 +1,8 @@
 ---
 title: "内部类"
 date: 2019-10-24T16:48:18+08:00
-tags: [ "java"]
+categories: "Java"
+tags: [ "Java"]
 ---
 
 ## 创建内部类

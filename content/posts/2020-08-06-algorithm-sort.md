@@ -1,7 +1,8 @@
 ---
 title: "排序"
 date: 2020-08-06T08:00:11+08:00
-tags: ["algorithm"]
+categories: "算法"
+tags: ["算法","排序"]
 ---
 
 *参考于《算法》第四版第二章*
@@ -175,22 +176,25 @@ public class Merge {
 		assert isSorted(a);
 	}
   // less()、isSorted()和main()方法见“排序算法类模板”
+}
 ```
 
 对于长度为N的任意数组，自顶向下的归并排序需要1/2NlgN至NlgN次比较，最多需要访问数组6NlgN次。
 
 
 自底向上的归并排序
+
 ```java
 public class MergeBU {
   // merge()方法代码参见Merge的merge()
-	public static void sort(Comparable[] a) {
-    int N = a.length
-		Comparable[] aux = new Comparable[N];
-		for(int sz = 1; sz < N; sz = sz+sz) // sz:子数组大小
+  public static void sort(Comparable[] a) {
+    int N = a.length;
+    Comparable[] aux = new Comparable[N];
+    for(int sz = 1; sz < N; sz = sz+sz) // sz:子数组大小
       for(int lo = 0; lo < N-sz; lo += sz+sz) // lo:子数组索引
         merge(a, aux, lo, lo+sz-1, Math.min(lo+sz+sz-1, N-1));
-	}
+  }
+}
 ```
 
 对于长度为N的任意数组，自底向上的归并排序需要1/2NlgN至NlgN次比较，最多需要访问数组6NlgN次。
@@ -203,9 +207,11 @@ public class MergeBU {
 public class MergeX {
     private static final int CUTOFF = 7;  // cutoff to insertion sort
 
-    private static void merge(Comparable[] src, Comparable[] dst, int lo, int mid, int hi) {
+    private static
+    void merge(Comparable[] src, Comparable[] dst, int lo, int mid, int hi) {
 
-	        // precondition: src[lo .. mid] and src[mid+1 .. hi] are sorted subarrays
+	        // precondition:
+          // src[lo .. mid] and src[mid+1 .. hi] are sorted subarrays
 	        assert isSorted(src, lo, mid);
 	        assert isSorted(src, mid+1, hi);
 
@@ -221,7 +227,8 @@ public class MergeX {
 	        assert isSorted(dst, lo, hi);
 	    }
 
-	    private static void sort(Comparable[] src, Comparable[] dst, int lo, int hi) {
+      private static
+      void sort(Comparable[] src, Comparable[] dst, int lo, int hi) {
 	        // if (hi <= lo) return;
 	        if (hi <= lo + CUTOFF) {
 	            insertionSort(dst, lo, hi);
@@ -282,7 +289,7 @@ public class Quick {
     if(a == null) throw new IllegalArgumentException("argument is null");
     int n = a.length;
         for (int i = 0; i < n; i++) {
-            int r = i + uniform(n-i);     // between i and n-1
+            int r = i + uniform(n-i);     //  i ~ n-i-1
             Comparable temp = a[i];
             a[i] = a[r];
             a[r] = temp;

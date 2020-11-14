@@ -1,7 +1,8 @@
 ---
 title: "多态"
 date: 2019-10-21T17:01:44+08:00
-tags: [ "java"]
+categories: "Java"
+tags: [ "Java"]
 ---
 
 ## 多态的作用

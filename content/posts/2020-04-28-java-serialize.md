@@ -1,7 +1,8 @@
 ---
 title: "对象序列化"
 date: 2020-04-28T16:01:24+08:00
-tags: ["java"]
+categories: "Java"
+tags: [ "Java"]
 ---
 
 ## 持久性

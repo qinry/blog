@@ -1,7 +1,8 @@
 ---
 title: "新I/O"
 date: 2020-04-28T20:16:54+08:00
-tags: ["java"]
+categories: "Java"
+tags: [ "Java"]
 ---
 
 通道是数据存储的地方，缓冲器充当着通道与外部数据交换的媒介
@@ -128,7 +129,7 @@ CharsetEncoder
 以下方式给文件加锁,release()可以释放suo
 
 ```java
-FileOuuputStream fos = new FileOutputStream(文件名);
+FileOutputStream fos = new FileOutputStream(文件名);
 FileLock fl = fos.tryLock();
 if(fl != null)
     fl.release();

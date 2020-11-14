@@ -1,6 +1,7 @@
 ---
 title: "git入门使用"
 date: 2019-10-20T08:50:01+08:00
+categories: "Git"
 tags: ["git"]
 ---
 

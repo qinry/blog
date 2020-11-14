@@ -1,7 +1,8 @@
 ---
 title: "访问权限"
 date: 2019-10-21T09:06:40+08:00
-tags: [ "java"]
+categories: "Java"
+tags: [ "Java"]
 ---
 
 ## 访问权限控制

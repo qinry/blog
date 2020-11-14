@@ -1,7 +1,8 @@
 ---
 title: "一切都是对象"
 date: 2019-10-18T20:41:27+08:00
-tags: [ "java"]
+categories: "Java"
+tags: [ "Java"]
 ---
 
 ## 对象及内存分布

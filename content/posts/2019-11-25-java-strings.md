@@ -1,7 +1,8 @@
 ---
 title: "字符串"
 date: 2019-11-25T09:46:16+08:00
-tags: [ "java"]
+categories: "Java"
+tags: [ "Java"]
 ---
 
 ## String对象不可变
@@ -45,17 +46,15 @@ String(byte[])
 长度
 int length()
 
-索引
+查找字符
 char charAt(int)
 
 复制
-char[] getChars(int, int, char[], int) // 参数:起始和终止索引, 数组，数组的起始索引
+char[] getChars(int, int, char[], int) // 参数:起始和终止索引, 目标数组，目标数组的起始索引
 byte[] getBytes(int, int, byte[], int)
 
 生成Char数组
 char[] toCharArray()
-
-匹配
 
 比较
 boolean equals(String) // 内容上的比较是否相等

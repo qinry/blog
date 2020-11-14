@@ -1,7 +1,8 @@
 ---
 title: "接口"
 date: 2019-10-22T16:29:48+08:00
-tags: [ "java"]
+categories: "Java"
+tags: [ "Java"]
 ---
 
 ## 抽象类和抽象方法

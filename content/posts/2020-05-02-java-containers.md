@@ -1,7 +1,8 @@
 ---
 title: "容器"
 date: 2020-05-02T21:30:16+08:00
-tags: ["java"]
+categories: "Java"
+tags: [ "Java"]
 ---
 
 ## 留意
@@ -10,7 +11,7 @@ tags: ["java"]
 
 首先展示集合类库较为完整图,实线代表具体的类，点线代表接口，短虚线代表抽象类。粗线框代表的类是最常用：
 
-![picture](https://qinry.top/images/containers.png)
+![picture](/images/containers.png)
 
 Interface Collection< E > api:
 

@@ -1,7 +1,8 @@
 ---
 title: "复用类"
 date: 2019-10-21T12:54:56+08:00
-tags: [ "java"]
+categories: "Java"
+tags: [ "Java"]
 ---
 
 ## 从现有类生成新类型

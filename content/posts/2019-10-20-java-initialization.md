@@ -1,7 +1,8 @@
 ---
 title: "初始化和清理"
 date: 2019-10-20T09:28:44+08:00
-tags: [ "java"]
+categories: "Java"
+tags: [ "Java"]
 ---
 
 ## 构造器确保初始化
