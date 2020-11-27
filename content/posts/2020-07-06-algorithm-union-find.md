@@ -1,8 +1,8 @@
 ---
 title: "并查集的实现"
 date: 2020-07-06T07:34:59+08:00
-categories: "算法"
-tags: ["算法"]
+categories: "Algorithm"
+tags : ["Algorithm"]
 ---
 
 *参考于《算法》第4版第一章第五节*

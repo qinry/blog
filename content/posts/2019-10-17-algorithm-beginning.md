@@ -1,8 +1,8 @@
 ---
 title: "数据结构与算法分析(笔记) -- 开始"
 date: 2019-10-17T23:29:10+08:00
-categories: "算法"
-tags : ["算法"]
+categories: "Algorithm"
+tags : ["Algorithm"]
 ---
 
 ## 递归使用的基本法则

@@ -1,8 +1,8 @@
 ---
 title: "排序"
 date: 2020-08-06T08:00:11+08:00
-categories: "算法"
-tags: ["算法","排序"]
+categories: "Algorithm"
+tags : ["Algorithm"]
 ---
 
 *参考于《算法》第四版第二章*

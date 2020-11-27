@@ -1,17 +1,13 @@
 ---
 title: "优先队列的实现"
 date: 2020-08-06T21:36:55+08:00
-categories: "算法"
-tags: ["算法","优先队列"]
+categories: "Algorithm"
+tags : ["Algorithm"]
 ---
 
-*参考于《算法》第四版第二章第四节*
+### 最大优先队列[¶][1]
 
-## 基于堆的优先队列
-
-API:
-最大优先队列
-
+#### API:
 `public class MaxPQ<Key extends Comparable<Key>>`
 
 方法|功能描述
@@ -89,9 +85,9 @@ public class MaxPQ<Key extends Comparable<Key>> {
 }
 
 ```
-
-最小优先队列
-API:
+---
+### 最小优先队列[¶][2]
+#### API:
 
 `public class MinPQ<Key extends Comparable<Key>>`
 
@@ -144,8 +140,9 @@ public class MinPQ<Key extends Comparable<Key>> {
     // isEmpty()、size()、insert()、exch()于MaxPQ的方法一样
 }
 ```
-索引最大优先队列
-API:
+---
+### 索引最小优先队列[¶][3]
+#### API:
 
 `public class IndexMinPQ<Item extends Comparable<Item>>`
 
@@ -257,9 +254,9 @@ public class IndexMinPQ<Item extends Comparable<Item>>{
 		qp[pq[j]] = j;
 	}
 ```
-
-索引最大优先队列
-API:
+---
+### 索引最大优先队列[¶][4]
+#### API:
 
 `public class IndexMaxPQ<Item extends Comparable<Item>>`
 
@@ -332,3 +329,13 @@ public class IndexMaxPQ<Item extends Comparable<Item>> {
   // insert()、change()、contains()、delete()、isEmpty()、size()、和exch()与IndexMinPQ的一样
 }
 ```
+
+---
+
+### 参考
+* 《算法》第四版
+
+[1]: #最大优先队列1
+[2]: #最小优先队列2
+[3]: #索引最小优先队列3
+[4]: #索引最大优先队列4

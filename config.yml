@@ -1,0 +1,14 @@
+baseURL: "http://qinry.github.io"
+title: "qinry's blog"
+theme: "hyde"
+
+paginate: 6
+
+
+# theme is hyde
+Menus:
+   main:
+     - Name: "Github"
+       URL: "https://github.com/qinry"
+Params:
+   description: "在此写下学习日志，努力充电中～"

@@ -1,8 +1,8 @@
 ---
 title: "背包、栈、队列实现"
 date: 2020-05-06T08:24:50+08:00
-categories: "算法"
-tags: ["算法","线性表"]
+categories: "Algorithm"
+tags : ["Algorithm"]
 ---
 
 API:
