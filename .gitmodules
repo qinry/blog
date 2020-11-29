@@ -3,4 +3,4 @@
 	url = git@github.com:qinry/qinry.github.io.git
 [submodule "themes/hyde"]
 	path = themes/hyde
-	url = git@github.com:qinry/hugo-theme-hyde.git
+	url = git@github.com:qinry/hyde.git
