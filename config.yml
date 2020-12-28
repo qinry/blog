@@ -10,5 +10,7 @@ Menus:
    main:
      - Name: "Github"
        URL: "https://github.com/qinry"
+     - Name: "Categories"
+       URL: "https://qinry.github.io/categories"
 Params:
    description: "在此写下学习日志，努力充电中～"
