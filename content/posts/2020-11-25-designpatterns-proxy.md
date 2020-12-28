@@ -2,7 +2,8 @@
 title: "设计模式——代理模式"
 date: 2020-11-25T19:35:36+08:00
 draft: true
-categories: "design pattern"
+categories: "Design Pattern"
+tags: ["Design Pattern"]
 ---
 
 # 代理模式

@@ -1,7 +1,8 @@
 ---
 title: "设计模式——单件模式"
 date: 2020-11-16T08:08:26+08:00
-categories: "design pattern"
+categories: "Design Pattern"
+tags: ["Design Pattern"]
 ---
 
 # 单件模式
