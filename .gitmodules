@@ -1,6 +1,0 @@
-[submodule "public"]
-	path = public
-	url = http://github.com/qinry/qinry.github.io.git
-[submodule "themes/hyde"]
-	path = themes/hyde
-	url = http://github.com/qinry/hyde.git
