@@ -1,7 +1,7 @@
 baseURL: "https://qinry.github.io/"
 title: "qinry's blog"
 theme: "hyde"
-
+hasCJKLanguage: true
 # theme is hyde
 Menus:
    main:
