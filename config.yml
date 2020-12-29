@@ -2,9 +2,6 @@ baseURL: "https://qinry.github.io/"
 title: "qinry's blog"
 theme: "hyde"
 
-paginate: 6
-
-
 # theme is hyde
 Menus:
    main:
