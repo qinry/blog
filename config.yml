@@ -1,13 +1,17 @@
 baseURL: "https://qinry.github.io/"
-title: "qinry's blog"
+title: "欢迎来到槎城小子的博客！"
 theme: "hyde"
+# 识别中日韩文语言
 hasCJKLanguage: true
 # theme is hyde
 Menus:
    main:
      - Name: "Github"
        URL: "https://github.com/qinry"
-     - Name: "Categories"
+     - Name: "分类"
        URL: "/categories"
 Params:
-   description: "在此写下学习日志，努力充电中～"
+   description: "不积硅步无以至千里，不积小流无以成江海。"
+   # 蓝色背景
+   themeColor: "theme-base-0d"
+   copyright: Copyright © 2021 槎城小子
